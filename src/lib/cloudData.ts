@@ -7,6 +7,12 @@ export async function ensureDefaultHabits(sb: SupabaseClient): Promise<void> {
   if (error) throw error
 }
 
+/** Merges duplicate habit rows (same name) into one; preserves completions. Idempotent. */
+export async function dedupeHabits(sb: SupabaseClient): Promise<void> {
+  const { error } = await sb.rpc('dedupe_habits')
+  if (error) throw error
+}
+
 export async function fetchHabitsFromCloud(
   sb: SupabaseClient,
   userId: string,

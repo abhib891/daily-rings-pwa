@@ -13,8 +13,9 @@ In the Supabase **SQL Editor**, run in order:
 
 1. **[`supabase/migrations/001_initial.sql`](./supabase/migrations/001_initial.sql)** — `habits` + `day_entries` and RLS.  
 2. **[`supabase/migrations/002_ensure_default_habits_rpc.sql`](./supabase/migrations/002_ensure_default_habits_rpc.sql)** — `ensure_default_habits()` so default habits are created **atomically** (avoids duplicate “Exercise / Read / Learn” rows when the app loads twice in parallel).
+3. **[`supabase/migrations/003_dedupe_habits_rpc.sql`](./supabase/migrations/003_dedupe_habits_rpc.sql)** — `dedupe_habits()` merges duplicate same-name habits and **OR-merges** `day_entries`; the app calls this after every sign-in load so old duplicate rows self-heal.
 
-If you already have duplicate habits, run **once** in SQL Editor (keeps the row with the **smallest `id`** per user + name):
+If you already have duplicate habits and have **not** applied migration 003 yet, you can still run **once** in SQL Editor (keeps the row with the **smallest `id`** per user + name; **deletes** `day_entries` tied only to duplicate habit ids — prefer migration 003 + app reload instead):
 
 ```sql
 delete from public.habits h

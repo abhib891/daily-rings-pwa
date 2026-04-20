@@ -9,6 +9,7 @@ import type { Session } from '@supabase/supabase-js'
 import { AuthPanel } from './components/AuthPanel'
 import { Ring } from './components/Ring'
 import {
+  dedupeHabits,
   ensureDefaultHabits,
   fetchEntriesFromCloud,
   fetchHabitsFromCloud,
@@ -83,6 +84,7 @@ export default function App() {
     setCloudBusy(true)
     try {
       await ensureDefaultHabits(supabase)
+      await dedupeHabits(supabase)
       const habits = await fetchHabitsFromCloud(supabase, session.user.id)
       const from = addDays(localDateString(), -120)
       const to = localDateString()

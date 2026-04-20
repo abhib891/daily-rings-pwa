@@ -27,7 +27,7 @@ A small **personal habit tracker** inspired by Apple Watch–style **rings**: ma
 | Client SDK | **`@supabase/supabase-js`** |
 | Hosting | **Vercel** (static `dist/`); env: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` (or `VITE_SUPABASE_PUBLISHABLE_KEY`) |
 
-**SQL migrations:** `supabase/migrations/` (`001_initial.sql`, `002_ensure_default_habits_rpc.sql`).
+**SQL migrations:** `supabase/migrations/` (`001_initial.sql`, `002_ensure_default_habits_rpc.sql`, `003_dedupe_habits_rpc.sql`).
 
 ---
 
