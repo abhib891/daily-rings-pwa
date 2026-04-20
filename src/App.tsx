@@ -1,10 +1,4 @@
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-  type FormEvent,
-} from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { Session } from '@supabase/supabase-js'
 import { AuthPanel } from './components/AuthPanel'
 import { Ring } from './components/Ring'
@@ -13,18 +7,18 @@ import {
   ensureDefaultHabits,
   fetchEntriesFromCloud,
   fetchHabitsFromCloud,
-  insertHabitCloud,
+  updateHabitNameCloud,
   upsertDayEntry,
 } from './lib/cloudData'
 import { addDays, localDateString, parseDate } from './lib/dates'
 import { fetchDailyQuote, type DailyQuote } from './lib/dailyQuote'
 import { getSupabase } from './lib/supabaseClient'
 import {
-  addHabit,
   doubleMissRisk,
   emptySyncedShell,
   isCompleted,
   loadState,
+  renameHabit,
   saveState,
   setCompleted,
   type AppState,
@@ -85,7 +79,6 @@ export default function App() {
   const [state, setState] = useState<AppState>(() =>
     supabase ? emptySyncedShell() : loadState(),
   )
-  const [newName, setNewName] = useState('')
   const [cloudBusy, setCloudBusy] = useState(false)
   const [cloudError, setCloudError] = useState<string | null>(null)
   const [dailyQuote, setDailyQuote] = useState<DailyQuote | null>(null)
@@ -178,7 +171,7 @@ export default function App() {
     [state.habits],
   )
 
-  const toggle = useCallback(
+  const applyToggle = useCallback(
     async (habitId: string) => {
       const cur = isCompleted(state, habitId, today)
       const next = !cur
@@ -202,38 +195,54 @@ export default function App() {
     [state, today, useCloud, supabase, session, reloadCloud],
   )
 
-  const submitHabit = useCallback(
-    async (e: FormEvent) => {
-      e.preventDefault()
-      const trimmed = newName.trim()
+  const requestToggle = useCallback(
+    (habitId: string, habitName: string) => {
+      const cur = isCompleted(state, habitId, today)
+      if (!cur) {
+        const dateStr = parseDate(today).toLocaleDateString(undefined, {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        })
+        const ok = window.confirm(
+          `Are you sure you completed “${habitName}” for ${dateStr}?`,
+        )
+        if (!ok) return
+      }
+      void applyToggle(habitId)
+    },
+    [state, today, applyToggle],
+  )
+
+  const commitRename = useCallback(
+    async (habitId: string, name: string) => {
+      const trimmed = name.trim()
       if (!trimmed) return
+      const habit = state.habits.find((h) => h.id === habitId)
+      if (!habit || habit.name === trimmed) return
 
       if (useCloud && supabase && session) {
-        const maxOrder = Math.max(-1, ...state.habits.map((h) => h.sortOrder))
         try {
-          const h = await insertHabitCloud(
+          await updateHabitNameCloud(
             supabase,
             session.user.id,
+            habitId,
             trimmed,
-            maxOrder + 1,
           )
-          setState((s) => ({
-            ...s,
-            habits: [...s.habits, h].sort((a, b) => a.sortOrder - b.sortOrder),
-          }))
-          setNewName('')
+          setState((s) => renameHabit(s, habitId, trimmed))
         } catch (err) {
           setCloudError(
-            err instanceof Error ? err.message : 'Could not add habit',
+            err instanceof Error ? err.message : 'Could not rename habit',
           )
+          await reloadCloud()
         }
         return
       }
 
-      setState((s) => addHabit(s, trimmed))
-      setNewName('')
+      setState((s) => renameHabit(s, habitId, trimmed))
     },
-    [newName, state.habits, useCloud, supabase, session],
+    [state, useCloud, supabase, session, reloadCloud],
   )
 
   const signOut = useCallback(async () => {
@@ -338,28 +347,12 @@ export default function App() {
               atRisk={risk && !closed}
               accent={accent}
               track={track}
-              onToggle={() => void toggle(h.id)}
+              onToggle={() => requestToggle(h.id, h.name)}
+              onRename={(name) => void commitRename(h.id, name)}
             />
           )
         })}
       </section>
-
-      <form className="add-habit" onSubmit={(e) => void submitHabit(e)}>
-        <label htmlFor="habit-name" className="sr-only">
-          New habit name
-        </label>
-        <input
-          id="habit-name"
-          className="add-habit-input"
-          placeholder="Add a habit…"
-          value={newName}
-          onChange={(e) => setNewName(e.target.value)}
-          maxLength={80}
-        />
-        <button type="submit" className="add-habit-btn" disabled={!newName.trim() || cloudBusy}>
-          Add
-        </button>
-      </form>
 
       <section className="week-panel" aria-label="Last seven days">
         <h2 className="week-title">Past week</h2>

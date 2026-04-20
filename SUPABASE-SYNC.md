@@ -78,7 +78,7 @@ npm run dev
 
 ## 6. First sign-in
 
-After you sign in with **Google** or **email link**, the app creates three default habits if you have none. Toggling rings writes to **`day_entries`**; new habits go to **`habits`**.
+After you sign in with **Google** or **email link**, the app creates three default habits if you have none. Toggling rings writes to **`day_entries`**; renames update **`habits`**.
 
 ---
 

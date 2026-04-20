@@ -110,3 +110,14 @@ export function addHabit(state: AppState, name: string): AppState {
     habits: [...state.habits, { id, name: trimmed, sortOrder: maxOrder + 1 }],
   }
 }
+
+export function renameHabit(state: AppState, habitId: string, name: string): AppState {
+  const trimmed = name.trim()
+  if (!trimmed) return state
+  return {
+    ...state,
+    habits: state.habits.map((h) =>
+      h.id === habitId ? { ...h, name: trimmed } : h,
+    ),
+  }
+}

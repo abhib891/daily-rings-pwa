@@ -2,7 +2,7 @@
 
 ## What this is
 
-**Activity Tracker** (UI title) — a small **personal habit tracker** inspired by Apple Watch–style **rings**: mark each day whether you did things like **exercise**, **read**, and **learn / build** (you can add more habits). There is a **past week** grid and a **“don’t miss twice”** style hint when a habit is at risk after you already have history.
+**Activity Tracker** (UI title) — a small **personal habit tracker** inspired by Apple Watch–style **rings**: mark each day for three habits (defaults **exercise**, **read**, **learn / build** — you can **rename** each label on the card; names sync in cloud mode). There is a **past week** grid and a **“don’t miss twice”** style hint when a habit is at risk after you already have history.
 
 - **Local-only mode:** if Supabase env vars are missing, data lives in the browser’s **`localStorage`** (per device / per browser).
 - **Synced mode (recommended):** sign in with **Google** or **email magic link**; habits and completions are stored in **Supabase** so the same account sees the same data on **phone, laptop, and any browser** (see [SUPABASE-SYNC.md](./SUPABASE-SYNC.md)).

@@ -107,3 +107,19 @@ export async function insertHabitCloud(
     sortOrder: data.sort_order as number,
   }
 }
+
+export async function updateHabitNameCloud(
+  sb: SupabaseClient,
+  userId: string,
+  habitId: string,
+  name: string,
+): Promise<void> {
+  const trimmed = name.trim()
+  if (!trimmed) return
+  const { error } = await sb
+    .from('habits')
+    .update({ name: trimmed, updated_at: new Date().toISOString() })
+    .eq('id', habitId)
+    .eq('user_id', userId)
+  if (error) throw error
+}
