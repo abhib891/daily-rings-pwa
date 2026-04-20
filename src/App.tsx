@@ -348,70 +348,74 @@ export default function App() {
         </p>
       )}
 
-      <section className="rings-row" aria-label="Today’s habits">
-        {sortedHabits.map((h, i) => {
-          const closed = isCompleted(state, h.id, today)
-          const risk = doubleMissRisk(state, h.id, today)
-          const accent = ACCENTS[i % ACCENTS.length]
-          const track = 'var(--ring-track-muted)'
-          return (
-            <Ring
-              key={h.id}
-              label={h.name}
-              closed={closed}
-              atRisk={risk && !closed}
-              accent={accent}
-              track={track}
-              onToggle={() => requestToggle(h.id, h.name)}
-              onRename={(name) => void commitRename(h.id, name)}
-            />
-          )
-        })}
-      </section>
+      <div className="app-body">
+        <section className="rings-row" aria-label="Today’s habits">
+          {sortedHabits.map((h, i) => {
+            const closed = isCompleted(state, h.id, today)
+            const risk = doubleMissRisk(state, h.id, today)
+            const accent = ACCENTS[i % ACCENTS.length]
+            const track = 'var(--ring-track-muted)'
+            return (
+              <Ring
+                key={h.id}
+                label={h.name}
+                closed={closed}
+                atRisk={risk && !closed}
+                accent={accent}
+                track={track}
+                onToggle={() => requestToggle(h.id, h.name)}
+                onRename={(name) => void commitRename(h.id, name)}
+              />
+            )
+          })}
+        </section>
 
-      <section className="week-panel" aria-label="Last seven days">
-        <h2 className="week-title">Past week</h2>
-        <div className="week-table">
-          <div className="week-head">
-            <span className="week-corner" />
-            {days.map((d) => (
-              <span key={d} className="week-dow" title={d}>
-                {weekdayShort(d)}
-              </span>
-            ))}
-          </div>
-          {sortedHabits.map((h) => (
-            <div key={h.id} className="week-row">
-              <span className="week-habit-name">{h.name}</span>
-              {days.map((d) => {
-                const done = isCompleted(state, h.id, d)
-                const isToday = d === today
-                return (
-                  <span
-                    key={d}
-                    className={`week-cell${done ? ' week-cell--done' : ''}${isToday ? ' week-cell--today' : ''}`}
-                    title={`${h.name} · ${d}`}
-                    aria-label={`${h.name} ${d}: ${done ? 'done' : 'not done'}`}
-                  >
-                    {done ? '●' : '○'}
+        <div className="app-body-side">
+          <section className="week-panel" aria-label="Last seven days">
+            <h2 className="week-title">Past week</h2>
+            <div className="week-table">
+              <div className="week-head">
+                <span className="week-corner" />
+                {days.map((d) => (
+                  <span key={d} className="week-dow" title={d}>
+                    {weekdayShort(d)}
                   </span>
-                )
-              })}
+                ))}
+              </div>
+              {sortedHabits.map((h) => (
+                <div key={h.id} className="week-row">
+                  <span className="week-habit-name">{h.name}</span>
+                  {days.map((d) => {
+                    const done = isCompleted(state, h.id, d)
+                    const isToday = d === today
+                    return (
+                      <span
+                        key={d}
+                        className={`week-cell${done ? ' week-cell--done' : ''}${isToday ? ' week-cell--today' : ''}`}
+                        title={`${h.name} · ${d}`}
+                        aria-label={`${h.name} ${d}: ${done ? 'done' : 'not done'}`}
+                      >
+                        {done ? '●' : '○'}
+                      </span>
+                    )
+                  })}
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </section>
+          </section>
 
-      <footer className="app-bottom">
-        <NeverMissTwiceNote />
-        <p className="app-bottom-note">
-          Daily quotes load from{' '}
-          <a href="https://github.com/lukePeavey/quotable" target="_blank" rel="noreferrer">
-            Quotable
-          </a>{' '}
-          when you are online; otherwise a built-in list is used.
-        </p>
-      </footer>
+          <footer className="app-bottom">
+            <NeverMissTwiceNote />
+            <p className="app-bottom-note">
+              Daily quotes load from{' '}
+              <a href="https://github.com/lukePeavey/quotable" target="_blank" rel="noreferrer">
+                Quotable
+              </a>{' '}
+              when you are online; otherwise a built-in list is used.
+            </p>
+          </footer>
+        </div>
+      </div>
     </div>
   )
 }

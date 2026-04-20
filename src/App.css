@@ -1,10 +1,31 @@
 .app {
-  padding: max(1.35rem, env(safe-area-inset-top, 0px)) 1.15rem 2.75rem;
+  padding: max(1.35rem, env(safe-area-inset-top, 0px)) max(1.15rem, env(safe-area-inset-right, 0px))
+    2.75rem max(1.15rem, env(safe-area-inset-left, 0px));
   text-align: left;
   max-width: 28rem;
   margin: 0 auto;
   width: 100%;
   box-sizing: border-box;
+}
+
+@media (min-width: 520px) {
+  .app {
+    max-width: min(40rem, calc(100% - 2.5rem));
+    padding-left: 1.35rem;
+    padding-right: 1.35rem;
+  }
+}
+
+@media (min-width: 720px) {
+  .app {
+    max-width: min(48rem, calc(100% - 3rem));
+  }
+}
+
+@media (min-width: 960px) {
+  .app {
+    max-width: min(72rem, calc(100% - 3rem));
+  }
 }
 
 .app--center {
@@ -319,10 +340,51 @@
   color: var(--text-muted);
 }
 
+.app-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+@media (min-width: 960px) {
+  .app-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(22rem, 1.12fr);
+    gap: 1.75rem 2.25rem;
+    align-items: start;
+  }
+
+  .week-panel {
+    position: sticky;
+    top: max(0.75rem, env(safe-area-inset-top, 0px));
+    max-height: calc(100dvh - 2rem);
+    overflow: auto;
+  }
+
+  .app-bottom {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+  }
+}
+
+.app-body-side {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 0;
+}
+
 .app-bottom {
-  margin-top: 2.25rem;
+  margin-top: 0.5rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--ring-border);
+}
+
+@media (max-width: 959.98px) {
+  .app-bottom {
+    margin-top: 0.25rem;
+  }
 }
 
 .app-bottom-reminder {
@@ -362,12 +424,26 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(6.75rem, 1fr));
   gap: 0.85rem;
-  margin-bottom: 1.65rem;
+  margin-bottom: 0;
 }
 
 @media (max-width: 24rem) {
   .rings-row {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 960px) {
+  .rings-row {
+    grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
+    gap: 1.1rem;
+  }
+}
+
+@media (min-width: 1100px) {
+  .rings-row {
+    grid-template-columns: repeat(auto-fill, minmax(8.25rem, 1fr));
+    gap: 1.25rem;
   }
 }
 

@@ -159,6 +159,17 @@
   color: var(--risk-text);
 }
 
+@media (min-width: 960px) {
+  .ring-donut {
+    width: 100px;
+    height: 100px;
+  }
+
+  .ring-card {
+    padding: 1.25rem 1rem 1rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ring-card,
   .ring-donut-btn {
