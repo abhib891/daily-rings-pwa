@@ -1,0 +1,70 @@
+.ring-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 0.75rem 0.75rem;
+  border: 1px solid var(--ring-border);
+  border-radius: 16px;
+  background: var(--ring-card-bg);
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  text-align: center;
+  min-width: 0;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+
+.ring-card:hover {
+  border-color: var(--ring-border-hover);
+}
+
+.ring-card:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.ring-card--risk {
+  border-color: var(--risk-border);
+  box-shadow: 0 0 0 1px var(--risk-glow);
+}
+
+.ring-donut {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from -90deg,
+    var(--ring-accent) 0deg,
+    var(--ring-accent) calc(var(--ring-p, 0) * 360deg),
+    var(--ring-track) 0
+  );
+  -webkit-mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 11px),
+    #000 calc(100% - 11px)
+  );
+  mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 11px),
+    #000 calc(100% - 11px)
+  );
+}
+
+.ring-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-h);
+  line-height: 1.2;
+  max-width: 7.5rem;
+}
+
+.ring-risk {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--risk-text);
+}

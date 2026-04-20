@@ -1,19 +1,20 @@
 # daily-rings-pwa
 
-Personal **PWA** for daily “rings”–style habits (exercise, read, learn/build, …) with **Supabase** sync between iPhone and Mac. Friction-light: no Apple Developer account; sign in with **Google** or **email magic link** once Supabase Auth is configured.
+Personal **PWA** for daily “rings”–style habits (exercise, read, learn/build, …). Data is in **`localStorage`** for now (per browser / per device). Optional later: **Supabase** for sync (see `supabase/migrations/`).
 
-**Prerequisites:** see [PREREQUISITES.md](./PREREQUISITES.md).
+**Prerequisites:** see [PREREQUISITES.md](./PREREQUISITES.md).  
+**iPhone + laptop (HTTPS deploy):** [DEPLOY-IPHONE.md](./DEPLOY-IPHONE.md).
 
 ## Quick start (local)
 
 ```bash
 npm install
-cp .env.example .env
-# Edit .env with your Supabase URL and anon key, then:
 npm run dev
 ```
 
-## Supabase schema
+Supabase is **not** required for the current UI. When you add cloud sync, copy `.env.example` to `.env` and configure Supabase.
+
+## Supabase schema (optional / future)
 
 Run `supabase/migrations/001_initial.sql` in the Supabase SQL editor for v1 tables and RLS.
 
@@ -35,11 +36,10 @@ git push -u origin main
 
 Replace the remote URL if your repo name differs.
 
-## Stack (planned)
+## Stack
 
-- **Vite** + **React** + **TypeScript**
-- **Supabase** (Postgres + Auth + RLS)
-- **PWA** (service worker / install): add in a follow-up commit
+- **Vite** + **React** + **TypeScript** + **`vite-plugin-pwa`** (manifest + service worker in production builds)
+- **Supabase** (optional): schema in repo; not wired in the app yet
 
 ## License
 
