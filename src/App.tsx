@@ -192,7 +192,9 @@ export default function App() {
     ? 'Signed in — changes sync to your account on every device.'
     : supabase
       ? 'Sign in once to sync rings across phone, laptop, and browsers.'
-      : 'Cloud not configured — data stays in this browser only. Add Supabase env vars to enable sync.'
+      : import.meta.env.PROD
+        ? 'Cloud not configured in this build — data stays in this browser only. In Vercel → Settings → Environment Variables, set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY for Production, then Redeploy (use “Redeploy” without cache if unsure).'
+        : 'Cloud not configured — copy .env.example to .env with your Supabase URL and anon/publishable key, then restart npm run dev.'
 
   if (supabase && !authReady) {
     return (

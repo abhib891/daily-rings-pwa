@@ -33,14 +33,23 @@ Add each **origin** you use (production + localhost). Magic links and OAuth retu
 
 ## 4. Add env vars on Vercel
 
-Project → **Settings** → **Environment Variables** (Production):
+Project → **Settings** → **Environment Variables**:
 
 | Name | Value |
 |------|--------|
 | `VITE_SUPABASE_URL` | `https://xxxxx.supabase.co` |
-| `VITE_SUPABASE_ANON_KEY` | `eyJ…` (anon public key) |
+| `VITE_SUPABASE_ANON_KEY` | Your **publishable** (`sb_publishable_…`) or **anon** (`eyJ…`) public client key |
 
-Redeploy (**Deployments** → **⋯** → **Redeploy**) so the new build picks up the variables.
+**Critical checks**
+
+1. Names must be **exactly** as above (including the **`VITE_`** prefix). Names like `SUPABASE_URL` without `VITE_` are **ignored** by Vite and will **not** appear in the browser bundle.
+2. Enable these variables for **Production** (not only Preview / Development), unless you only deploy preview builds.
+3. **Redeploy** after saving (**Deployments** → **⋯** → **Redeploy**). If the site still behaves like “local only”, redeploy once with **“Use existing Build Cache” turned off** (clear cache), so Vite rebuilds with the new env.
+
+**Verify the build:** open the latest deployment → **Building** log. You should see either  
+`[daily-rings] Supabase client env at build: OK (URL + key)` or  
+`MISSING — add VITE_SUPABASE_URL + VITE_SUPABASE_ANON_KEY…`.  
+That line confirms whether the variables were visible during `npm run build`.
 
 ## 5. Local dev (optional)
 

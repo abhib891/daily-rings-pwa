@@ -1,9 +1,23 @@
 import { VitePWA } from 'vite-plugin-pwa'
 import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), 'VITE')
+  const hasUrl = Boolean(env.VITE_SUPABASE_URL?.trim())
+  const hasKey = Boolean(
+    env.VITE_SUPABASE_ANON_KEY?.trim() ||
+      env.VITE_SUPABASE_PUBLISHABLE_KEY?.trim(),
+  )
+  if (mode === 'production') {
+    // Shows in Vercel "Build" logs — no secret values printed.
+    console.log(
+      `[daily-rings] Supabase client env at build: ${hasUrl && hasKey ? 'OK (URL + key)' : 'MISSING — add VITE_SUPABASE_URL + VITE_SUPABASE_ANON_KEY for Production, then redeploy'}`,
+    )
+  }
+
+  return {
   plugins: [
     react(),
     VitePWA({
@@ -46,4 +60,5 @@ export default defineConfig({
       },
     }),
   ],
+  }
 })
