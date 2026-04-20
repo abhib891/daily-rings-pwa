@@ -3,7 +3,8 @@
 Personal **PWA** for daily “rings”–style habits (exercise, read, learn/build, …). Data is in **`localStorage`** for now (per browser / per device). Optional later: **Supabase** for sync (see `supabase/migrations/`).
 
 **Prerequisites:** see [PREREQUISITES.md](./PREREQUISITES.md).  
-**iPhone + laptop (HTTPS deploy):** [DEPLOY-IPHONE.md](./DEPLOY-IPHONE.md).
+**Deploy to HTTPS (Vercel / Netlify / Cloudflare):** [DEPLOY-HOSTS.md](./DEPLOY-HOSTS.md).  
+**iPhone + laptop (install + data notes):** [DEPLOY-IPHONE.md](./DEPLOY-IPHONE.md).
 
 ## Quick start (local)
 

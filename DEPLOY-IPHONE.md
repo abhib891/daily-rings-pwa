@@ -4,18 +4,9 @@ Safari on iPhone only treats your app as a real **installable PWA** on a proper 
 
 ## 1. Deploy once (get HTTPS)
 
-Pick one static host (all give free HTTPS):
+Use **one** of **Vercel**, **Netlify**, or **Cloudflare Pages**. Step-by-step for each is in **[DEPLOY-HOSTS.md](./DEPLOY-HOSTS.md)**.
 
-| Host | Idea |
-|------|------|
-| [Vercel](https://vercel.com) | Import Git repo → Framework: **Vite** → Build: `npm run build` → Output: **`dist`** → Deploy. |
-| [Netlify](https://www.netlify.com) | Same build settings. |
-| [Cloudflare Pages](https://pages.cloudflare.com) | Build `npm run build`, output **`dist`**. |
-
-After deploy, you get a URL like `https://daily-rings-xxx.vercel.app`.
-
-**Build command:** `npm run build`  
-**Publish directory:** `dist`
+Summary: **`npm run build`**, publish **`dist`**, then open the **`https://…`** URL they give you.
 
 This project uses **`vite-plugin-pwa`**; the production build includes `manifest.webmanifest`, icons, and a service worker for offline shell caching.
 
