@@ -1,13 +1,47 @@
 # daily-rings-pwa
 
-Personal **PWA** for daily “rings”–style habits (exercise, read, learn/build, …).
+## What this is
 
-- **Without Supabase env vars:** data stays in **`localStorage`** (per browser / device).
-- **With Supabase (recommended):** sign in with **Google** or **email magic link** — habits and rings **sync everywhere** (see [SUPABASE-SYNC.md](./SUPABASE-SYNC.md)).
+A small **personal habit tracker** inspired by Apple Watch–style **rings**: mark each day whether you did things like **exercise**, **read**, and **learn / build** (you can add more habits). There is a **past week** grid and a **“don’t miss twice”** style hint when a habit is at risk after you already have history.
 
-**Prerequisites:** see [PREREQUISITES.md](./PREREQUISITES.md).  
-**Deploy to HTTPS (Vercel — recommended):** [DEPLOY-HOSTS.md](./DEPLOY-HOSTS.md).  
-**iPhone + laptop (install + data notes):** [DEPLOY-IPHONE.md](./DEPLOY-IPHONE.md).
+- **Local-only mode:** if Supabase env vars are missing, data lives in the browser’s **`localStorage`** (per device / per browser).
+- **Synced mode (recommended):** sign in with **Google** or **email magic link**; habits and completions are stored in **Supabase** so the same account sees the same data on **phone, laptop, and any browser** (see [SUPABASE-SYNC.md](./SUPABASE-SYNC.md)).
+
+**Source repo:** [github.com/abhib891/daily-rings-pwa](https://github.com/abhib891/daily-rings-pwa)
+
+**Production URL (Vercel):** [https://daily-rings-pwa-9g3x.vercel.app](https://daily-rings-pwa-9g3x.vercel.app)
+
+> If your Vercel project name or domain changes, update this line. The canonical URL is always under **Vercel → your project → Domains** (or the latest **Production** deployment).
+
+---
+
+## Tech stack
+
+| Layer | Choice |
+|--------|--------|
+| UI | **React 19** + **TypeScript** |
+| Build / dev | **Vite 8** |
+| Styling | **CSS** (no UI framework) |
+| PWA | **`vite-plugin-pwa`** (manifest + service worker in production builds) |
+| Backend (optional) | **Supabase** — Postgres tables `habits` + `day_entries`, **Row Level Security**, **Auth** (Google / email OTP), RPC `ensure_default_habits()` for safe default seeding |
+| Client SDK | **`@supabase/supabase-js`** |
+| Hosting | **Vercel** (static `dist/`); env: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` (or `VITE_SUPABASE_PUBLISHABLE_KEY`) |
+
+**SQL migrations:** `supabase/migrations/` (`001_initial.sql`, `002_ensure_default_habits_rpc.sql`).
+
+---
+
+## Docs in this repo
+
+| Doc | Purpose |
+|-----|--------|
+| [PREREQUISITES.md](./PREREQUISITES.md) | Machine + Supabase + Git prerequisites |
+| [DEPLOY-HOSTS.md](./DEPLOY-HOSTS.md) | Deploy to HTTPS on **Vercel** |
+| [DEPLOY-IPHONE.md](./DEPLOY-IPHONE.md) | Add to Home Screen, storage notes |
+| [SUPABASE-SYNC.md](./SUPABASE-SYNC.md) | Auth URLs, env vars, SQL order, dedupe |
+| [LOCAL.md](./LOCAL.md) | Run without cloud |
+
+---
 
 ## Quick start (local)
 
@@ -16,34 +50,9 @@ npm install
 npm run dev
 ```
 
-Supabase is **optional** until you set **`VITE_SUPABASE_*`** on the host (or in `.env` locally). Then the UI switches to **sign-in + cloud sync**.
+Open **http://localhost:5173**. For cloud sync locally, copy `.env.example` → `.env` and fill Supabase URL + key.
 
-## Supabase schema (optional / future)
-
-Run `supabase/migrations/001_initial.sql` in the Supabase SQL editor for v1 tables and RLS.
-
-## Put this on GitHub (abhib891)
-
-If this folder is not yet a remote repo:
-
-1. Create an empty repository on GitHub: [github.com/new](https://github.com/new) (e.g. `daily-rings-pwa`).
-2. From this directory:
-
-```bash
-git init
-git add .
-git commit -m "Initial scaffold: Vite React TS, Supabase SQL, prereqs"
-git branch -M main
-git remote add origin https://github.com/abhib891/daily-rings-pwa.git
-git push -u origin main
-```
-
-Replace the remote URL if your repo name differs.
-
-## Stack
-
-- **Vite** + **React** + **TypeScript** + **`vite-plugin-pwa`**
-- **Supabase** (`@supabase/supabase-js`): optional sync + auth when `VITE_SUPABASE_*` is set
+---
 
 ## License
 
