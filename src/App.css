@@ -18,6 +18,60 @@
   margin-bottom: 1.65rem;
 }
 
+.app-brand {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  min-width: 0;
+}
+
+.app-brand-text {
+  min-width: 0;
+  flex: 1;
+}
+
+.app-mark {
+  flex-shrink: 0;
+  width: 2.85rem;
+  height: 2.85rem;
+  margin-top: 0.12rem;
+  filter: drop-shadow(0 2px 8px rgba(30, 64, 175, 0.12));
+}
+
+.app-mark-ring {
+  fill: none;
+}
+
+.app-mark-ring--outer {
+  stroke: #ff375f;
+}
+
+.app-mark-ring--mid {
+  stroke: #30d158;
+}
+
+.app-mark-ring--inner {
+  stroke: #0a84ff;
+}
+
+@media (prefers-color-scheme: dark) {
+  .app-mark {
+    filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.4));
+  }
+
+  .app-mark-ring--outer {
+    stroke: #ff6b8a;
+  }
+
+  .app-mark-ring--mid {
+    stroke: #4ade80;
+  }
+
+  .app-mark-ring--inner {
+    stroke: #60a5fa;
+  }
+}
+
 .app-header-row {
   display: flex;
   flex-wrap: wrap;

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { Session } from '@supabase/supabase-js'
+import { AppMark } from './components/AppMark'
 import { AuthPanel } from './components/AuthPanel'
 import { Ring } from './components/Ring'
 import {
@@ -271,8 +272,13 @@ export default function App() {
     return (
       <div className="app">
         <header className="app-header">
-          <h1 className="app-title">Activity Tracker</h1>
-          <p className="app-sub">Habits that follow you everywhere</p>
+          <div className="app-brand">
+            <AppMark />
+            <div className="app-brand-text">
+              <h1 className="app-title">Activity Tracker</h1>
+              <p className="app-sub">Habits that follow you everywhere</p>
+            </div>
+          </div>
         </header>
         <MotivationQuote quote={dailyQuote} loading={quoteLoading} />
         <AuthPanel supabase={supabase} />
@@ -290,16 +296,19 @@ export default function App() {
     <div className="app">
       <header className="app-header">
         <div className="app-header-row">
-          <div>
-            <h1 className="app-title">Activity Tracker</h1>
-            <p className="app-sub">
-              Today ·{' '}
-              {parseDate(today).toLocaleDateString(undefined, {
-                weekday: 'long',
-                month: 'short',
-                day: 'numeric',
-              })}
-            </p>
+          <div className="app-brand">
+            <AppMark />
+            <div className="app-brand-text">
+              <h1 className="app-title">Activity Tracker</h1>
+              <p className="app-sub">
+                Today ·{' '}
+                {parseDate(today).toLocaleDateString(undefined, {
+                  weekday: 'long',
+                  month: 'short',
+                  day: 'numeric',
+                })}
+              </p>
+            </div>
           </div>
           {useCloud && session?.user && (
             <div className="app-session">
