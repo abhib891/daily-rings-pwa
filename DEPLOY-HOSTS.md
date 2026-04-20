@@ -1,95 +1,68 @@
-# Deploy Daily Rings to HTTPS (Vercel, Netlify, Cloudflare Pages)
+# Deploy Daily Rings to HTTPS
 
-Your app is a static **Vite** build: **`npm run build`** → output folder **`dist`**. No server, no secrets required for the current version.
+Your app is a static **Vite** build: **`npm run build`** → output folder **`dist`**. No server, no secrets for the current version.
 
-**Repo:** the project should live in **Git** (e.g. GitHub) so the host can pull it on every push. This folder includes **`netlify.toml`** for Netlify; Vercel and Cloudflare usually auto-detect Vite when settings match below.
+**This project is set up to use [Vercel](https://vercel.com)** as the default host. Netlify and Cloudflare Pages remain documented below if you switch later.
 
----
+**Prerequisite:** push the repo to **GitHub** (or GitLab/Bitbucket) and connect that account to Vercel.
 
-## Shared settings (all hosts)
-
-| Setting | Value |
-|--------|--------|
-| Install command | `npm install` (default) |
-| Build command | `npm run build` |
-| Output / publish directory | **`dist`** |
-| Node.js | **20** or **22** (this repo pins **22** for Netlify via `netlify.toml`; set the same in other dashboards if builds fail). |
-
-The repo has **`.npmrc`** with `legacy-peer-deps=true` so **`vite-plugin-pwa`** installs correctly on **Vite 8**.
+The repo has **`.npmrc`** with `legacy-peer-deps=true` so **`vite-plugin-pwa`** installs on **Vite 8**. **`package.json`** includes **`engines.node`** so builds use a modern Node.
 
 ---
 
-## Option A — Vercel
+## Vercel (recommended)
 
-1. Go to [vercel.com](https://vercel.com) and sign in (e.g. with **GitHub**).
-2. **Add New…** → **Project** → **Import** your `daily-rings-pwa` repository.
-3. Vercel usually detects **Vite**. Confirm:
-   - **Framework Preset:** Vite  
-   - **Build Command:** `npm run build`  
-   - **Output Directory:** `dist`  
-   - **Install Command:** `npm install`  
-   - **Root Directory:** `.` (unless the app lives in a subfolder of the repo).
-4. **Environment Variables:** none needed for the current app.
-5. Click **Deploy**. When it finishes, open the **`https://….vercel.app`** URL.
+1. Open [vercel.com](https://vercel.com) and sign in (e.g. **Continue with GitHub**).
+2. **Add New…** → **Project**.
+3. **Import** your **`daily-rings-pwa`** Git repository (install the Vercel GitHub app if prompted).
+4. **Configure Project** — Vercel should detect **Vite**. Confirm:
+   - **Framework Preset:** **Vite**
+   - **Root Directory:** `./` (leave default unless the app is in a monorepo subfolder).
+   - **Build Command:** `npm run build`
+   - **Output Directory:** `dist`
+   - **Install Command:** `npm install`
+5. **Environment Variables:** leave empty for now (no `VITE_*` secrets required).
+6. Click **Deploy**. Wait for the build to finish.
+7. Open the **Production** URL shown on the success screen — it looks like **`https://<project-name>.vercel.app`**. That is your HTTPS URL for **laptop and iPhone**.
 
-**Updates:** every push to the connected branch triggers a new deployment.
+**Later changes:** every `git push` to the connected **production branch** (usually `main`) triggers a new deployment automatically.
 
-**Custom domain (optional):** Project → **Settings** → **Domains** → add yours; HTTPS is automatic.
-
----
-
-## Option B — Netlify
-
-This repo includes **`netlify.toml`** so Netlify picks **`npm run build`** and **`dist`** automatically.
-
-1. Go to [netlify.com](https://www.netlify.com) and sign in with **GitHub** (or your Git provider).
-2. **Add new site** → **Import an existing project** → choose the repo.
-3. Netlify should read **`netlify.toml`**. If the UI still asks:
-   - **Build command:** `npm run build`  
-   - **Publish directory:** `dist`  
-4. **Environment variables:** none required.  
-   - If the build complains about Node, add **`NODE_VERSION`** = `22` under **Site configuration** → **Environment variables** (the TOML already sets it for builds that respect `[build.environment]`).
-5. **Deploy site**. Use the **`https://….netlify.app`** URL.
-
-**Updates:** deploys on push to the linked branch.
+**Rename the URL:** Project → **Settings** → **Domains** — you can add a **custom domain** or adjust the default `*.vercel.app` name where Vercel allows it.
 
 ---
 
-## Option C — Cloudflare Pages
+## After Vercel deploy
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com) → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**.
-2. Authorize GitHub and select the **`daily-rings-pwa`** repository.
-3. **Set up builds:**
-   - **Project name:** anything you like (becomes part of **`*.pages.dev`**).
-   - **Production branch:** e.g. `main`.
-   - **Framework preset:** **Vite** (or **None**).
-   - **Build command:** `npm run build`
-   - **Build output directory:** `dist`
-4. **Environment variables (recommended):** add **`NODE_VERSION`** = `22` (or `20`) under **Settings** → **Environment variables** for **Production** (and Preview if you use PR previews). This avoids odd failures on Cloudflare’s default Node.
-5. **Save and Deploy**. Open the **`https://….pages.dev`** URL.
-
-**Updates:** new commits on the production branch rebuild automatically.
+1. On your **laptop**, open the **`https://….vercel.app`** link and confirm the app loads.
+2. On **iPhone**, use **Safari** → same URL → **Share** → **Add to Home Screen** (details in [DEPLOY-IPHONE.md](./DEPLOY-IPHONE.md)).
 
 ---
 
-## After deploy
+## Alternatives (optional)
 
-1. Open the **`https://…`** URL on your **laptop** and confirm the app loads.
-2. On **iPhone**, use **Safari** → same URL → **Share** → **Add to Home Screen** (see [DEPLOY-IPHONE.md](./DEPLOY-IPHONE.md)).
+### Netlify
+
+This repo includes **`netlify.toml`** (`npm run build`, publish **`dist`**, Node **22**).
+
+1. [netlify.com](https://www.netlify.com) → **Add new site** → **Import** the repo.  
+2. Deploy and use **`https://….netlify.app`**.
+
+### Cloudflare Pages
+
+1. [Cloudflare dashboard](https://dash.cloudflare.com) → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**.  
+2. Build command **`npm run build`**, output directory **`dist`**, set **`NODE_VERSION`** = `22` under environment variables if builds fail.  
+3. Use **`https://….pages.dev`**.
 
 ---
 
 ## Troubleshooting
 
-- **Build fails on `npm install`:** ensure the repo includes **`.npmrc`** (`legacy-peer-deps=true`) and was pushed before the deploy.
-- **Blank page:** open DevTools → **Console** on the preview URL; confirm `dist/index.html` exists in the build artifact (wrong publish folder is the usual mistake).
-- **Old PWA on phone:** after a deploy, Safari may cache the service worker; try a refresh or remove/re-add the home screen icon.
+- **Build fails on `npm install`:** ensure **`.npmrc`** is committed (`legacy-peer-deps=true`).
+- **Blank page:** wrong output directory — must be **`dist`**, not project root.
+- **Old PWA on phone:** refresh or remove and re-add the home screen icon after a deploy.
 
 ---
 
-## Deploy without Git (not ideal)
+## Deploy without Git (optional)
 
-- **Netlify:** drag-and-drop the **`dist`** folder in the UI (no auto-deploy on push).
-- **Vercel CLI:** `npm i -g vercel` then from the project root `vercel` / `vercel --prod` (can link to Git later).
-
-For ongoing use, **Git + automatic deploys** is simpler.
+From the project folder, with [Vercel CLI](https://vercel.com/docs/cli): `npx vercel` then `npx vercel --prod`. Linking the project to Git afterward gives you automatic deploys on push.

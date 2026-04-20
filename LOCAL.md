@@ -28,7 +28,7 @@ Open the URL Vite prints (often **http://localhost:4173/**).
 
 ## Notes
 
-- **HTTPS deploy (Vercel / Netlify / Cloudflare):** [DEPLOY-HOSTS.md](./DEPLOY-HOSTS.md).
+- **HTTPS deploy (Vercel):** [DEPLOY-HOSTS.md](./DEPLOY-HOSTS.md).
 - **iPhone install + storage notes:** [DEPLOY-IPHONE.md](./DEPLOY-IPHONE.md).
 - **iPhone + `localhost`:** not possible from the phone; use a deploy URL or an approved HTTPS tunnel.
 - **Clear data:** DevTools → Application → Local Storage → remove `daily-rings-v1`, or run `localStorage.removeItem('daily-rings-v1')` in the console.
