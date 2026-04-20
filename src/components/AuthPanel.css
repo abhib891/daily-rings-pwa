@@ -1,0 +1,106 @@
+.auth-panel {
+  max-width: 22rem;
+  margin: 0 auto 2rem;
+  padding: 1.5rem;
+  border: 1px solid var(--ring-border);
+  border-radius: 14px;
+  background: var(--ring-card-bg);
+  text-align: left;
+}
+
+.auth-title {
+  font-size: 1.15rem;
+  margin: 0 0 0.5rem;
+  color: var(--text-h);
+}
+
+.auth-lead {
+  margin: 0 0 1.25rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.auth-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+  color: var(--text-h);
+}
+
+.auth-input {
+  width: 100%;
+  margin-bottom: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid var(--ring-border);
+  background: var(--input-bg);
+  color: var(--text-h);
+  font: inherit;
+  font-size: 0.95rem;
+}
+
+.auth-input:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 0;
+}
+
+.auth-email-form {
+  margin: 0;
+}
+
+.auth-btn {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  border-radius: 10px;
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: none;
+}
+
+.auth-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.auth-btn-google {
+  background: #fff;
+  color: #1f2937;
+  border: 1px solid var(--ring-border);
+}
+
+@media (prefers-color-scheme: dark) {
+  .auth-btn-google {
+    background: #1f2937;
+    color: #f9fafb;
+  }
+}
+
+.auth-btn-primary {
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+}
+
+.auth-divider {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin: 1rem 0;
+}
+
+.auth-msg {
+  margin: 0.75rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.auth-msg--ok {
+  color: var(--week-done);
+}
+
+.auth-msg--err {
+  color: var(--risk-text);
+}

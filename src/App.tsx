@@ -5,11 +5,22 @@ import {
   useState,
   type FormEvent,
 } from 'react'
+import type { Session } from '@supabase/supabase-js'
+import { AuthPanel } from './components/AuthPanel'
 import { Ring } from './components/Ring'
+import {
+  ensureDefaultHabits,
+  fetchEntriesFromCloud,
+  fetchHabitsFromCloud,
+  insertHabitCloud,
+  upsertDayEntry,
+} from './lib/cloudData'
 import { addDays, localDateString, parseDate } from './lib/dates'
+import { getSupabase } from './lib/supabaseClient'
 import {
   addHabit,
   doubleMissRisk,
+  emptySyncedShell,
   isCompleted,
   loadState,
   saveState,
@@ -33,12 +44,77 @@ function weekdayShort(dateStr: string): string {
 }
 
 export default function App() {
-  const [state, setState] = useState<AppState>(() => loadState())
+  const supabase = useMemo(() => getSupabase(), [])
+  const [session, setSession] = useState<Session | null>(null)
+  const [authReady, setAuthReady] = useState(!supabase)
+  const [state, setState] = useState<AppState>(() =>
+    supabase ? emptySyncedShell() : loadState(),
+  )
   const [newName, setNewName] = useState('')
+  const [cloudBusy, setCloudBusy] = useState(false)
+  const [cloudError, setCloudError] = useState<string | null>(null)
+
+  const useCloud = Boolean(supabase && session)
+  const useLocal = !supabase
 
   useEffect(() => {
-    saveState(state)
-  }, [state])
+    if (!supabase) return
+    let cancelled = false
+    void supabase.auth.getSession().then(({ data: { session: s } }) => {
+      if (!cancelled) {
+        setSession(s)
+        setAuthReady(true)
+      }
+    })
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, s) => {
+      setSession(s)
+    })
+    return () => {
+      cancelled = true
+      subscription.unsubscribe()
+    }
+  }, [supabase])
+
+  const reloadCloud = useCallback(async () => {
+    if (!supabase || !session?.user.id) return
+    setCloudError(null)
+    setCloudBusy(true)
+    try {
+      await ensureDefaultHabits(supabase, session.user.id)
+      const habits = await fetchHabitsFromCloud(supabase, session.user.id)
+      const from = addDays(localDateString(), -120)
+      const to = localDateString()
+      const entries = await fetchEntriesFromCloud(
+        supabase,
+        session.user.id,
+        from,
+        to,
+      )
+      setState({ habits, entries })
+    } catch (e) {
+      setCloudError(e instanceof Error ? e.message : 'Could not load cloud data')
+    } finally {
+      setCloudBusy(false)
+    }
+  }, [supabase, session])
+
+  useEffect(() => {
+    if (!useCloud) return
+    let cancelled = false
+    void Promise.resolve().then(async () => {
+      if (cancelled) return
+      await reloadCloud()
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [useCloud, reloadCloud])
+
+  useEffect(() => {
+    if (useLocal) saveState(state)
+  }, [state, useLocal])
 
   const today = useMemo(() => localDateString(), [])
   const days = useMemo(() => weekDates(today), [today])
@@ -48,38 +124,146 @@ export default function App() {
     [state.habits],
   )
 
-  const toggle = useCallback((habitId: string) => {
-    setState((s) => {
-      const cur = isCompleted(s, habitId, today)
-      return setCompleted(s, habitId, today, !cur)
-    })
-  }, [today])
+  const toggle = useCallback(
+    async (habitId: string) => {
+      const cur = isCompleted(state, habitId, today)
+      const next = !cur
+      if (useCloud && supabase && session) {
+        setState((s) => setCompleted(s, habitId, today, next))
+        try {
+          await upsertDayEntry(
+            supabase,
+            session.user.id,
+            habitId,
+            today,
+            next,
+          )
+        } catch {
+          await reloadCloud()
+        }
+        return
+      }
+      setState((s) => setCompleted(s, habitId, today, next))
+    },
+    [state, today, useCloud, supabase, session, reloadCloud],
+  )
 
   const submitHabit = useCallback(
-    (e: FormEvent) => {
+    async (e: FormEvent) => {
       e.preventDefault()
-      setState((s) => addHabit(s, newName))
+      const trimmed = newName.trim()
+      if (!trimmed) return
+
+      if (useCloud && supabase && session) {
+        const maxOrder = Math.max(-1, ...state.habits.map((h) => h.sortOrder))
+        try {
+          const h = await insertHabitCloud(
+            supabase,
+            session.user.id,
+            trimmed,
+            maxOrder + 1,
+          )
+          setState((s) => ({
+            ...s,
+            habits: [...s.habits, h].sort((a, b) => a.sortOrder - b.sortOrder),
+          }))
+          setNewName('')
+        } catch (err) {
+          setCloudError(
+            err instanceof Error ? err.message : 'Could not add habit',
+          )
+        }
+        return
+      }
+
+      setState((s) => addHabit(s, trimmed))
       setNewName('')
     },
-    [newName],
+    [newName, state.habits, useCloud, supabase, session],
   )
+
+  const signOut = useCallback(async () => {
+    if (supabase) await supabase.auth.signOut()
+    setState(loadState())
+    setCloudError(null)
+  }, [supabase])
+
+  const hint = useCloud
+    ? 'Signed in — changes sync to your account on every device.'
+    : supabase
+      ? 'Sign in once to sync rings across phone, laptop, and browsers.'
+      : 'Cloud not configured — data stays in this browser only. Add Supabase env vars to enable sync.'
+
+  if (supabase && !authReady) {
+    return (
+      <div className="app app--center">
+        <p className="app-loading">Loading…</p>
+      </div>
+    )
+  }
+
+  if (supabase && !session) {
+    return (
+      <div className="app">
+        <header className="app-header">
+          <h1 className="app-title">Daily Rings</h1>
+          <p className="app-sub">Habits that follow you everywhere</p>
+        </header>
+        <AuthPanel supabase={supabase} />
+        <p className="app-footnote">
+          Configure <code>VITE_SUPABASE_URL</code> and{' '}
+          <code>VITE_SUPABASE_ANON_KEY</code> on your host (e.g. Vercel) and allow
+          this URL in Supabase Auth redirect settings.
+        </p>
+      </div>
+    )
+  }
 
   return (
     <div className="app">
       <header className="app-header">
-        <h1 className="app-title">Daily Rings</h1>
-        <p className="app-sub">
-          Today ·{' '}
-          {parseDate(today).toLocaleDateString(undefined, {
-            weekday: 'long',
-            month: 'short',
-            day: 'numeric',
-          })}
-        </p>
-        <p className="app-hint">
-          Tap a ring to log today. Data stays in this browser only.
-        </p>
+        <div className="app-header-row">
+          <div>
+            <h1 className="app-title">Daily Rings</h1>
+            <p className="app-sub">
+              Today ·{' '}
+              {parseDate(today).toLocaleDateString(undefined, {
+                weekday: 'long',
+                month: 'short',
+                day: 'numeric',
+              })}
+            </p>
+          </div>
+          {useCloud && session?.user && (
+            <div className="app-session">
+              <span className="app-session-email" title={session.user.email ?? ''}>
+                {session.user.email ?? session.user.id.slice(0, 8)}
+              </span>
+              <button type="button" className="sign-out-btn" onClick={() => void signOut()}>
+                Sign out
+              </button>
+            </div>
+          )}
+        </div>
+        <p className="app-hint">{hint}</p>
       </header>
+
+      {cloudError && (
+        <p className="app-error" role="alert">
+          {cloudError}{' '}
+          {useCloud && (
+            <button type="button" className="link-btn" onClick={() => void reloadCloud()}>
+              Retry
+            </button>
+          )}
+        </p>
+      )}
+
+      {cloudBusy && useCloud && (
+        <p className="app-loading-inline" aria-live="polite">
+          Syncing…
+        </p>
+      )}
 
       <section className="rings-row" aria-label="Today’s habits">
         {sortedHabits.map((h, i) => {
@@ -95,13 +279,13 @@ export default function App() {
               atRisk={risk && !closed}
               accent={accent}
               track={track}
-              onToggle={() => toggle(h.id)}
+              onToggle={() => void toggle(h.id)}
             />
           )
         })}
       </section>
 
-      <form className="add-habit" onSubmit={submitHabit}>
+      <form className="add-habit" onSubmit={(e) => void submitHabit(e)}>
         <label htmlFor="habit-name" className="sr-only">
           New habit name
         </label>
@@ -113,7 +297,7 @@ export default function App() {
           onChange={(e) => setNewName(e.target.value)}
           maxLength={80}
         />
-        <button type="submit" className="add-habit-btn" disabled={!newName.trim()}>
+        <button type="submit" className="add-habit-btn" disabled={!newName.trim() || cloudBusy}>
           Add
         </button>
       </form>

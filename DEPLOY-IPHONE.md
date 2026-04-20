@@ -24,10 +24,8 @@ Open the **same `https://…` URL** in Chrome or Safari. Bookmark it if you like
 
 Habit data is stored in **each browser’s `localStorage`**.
 
-- **iPhone (installed PWA)** and **laptop browser** are **different storage** → they **do not sync** automatically.
-- Using the **same URL** only means the **same app version**; not the same data.
-
-To **sync rings between devices** later, you would add a backend (e.g. **Supabase**) and sign-in—same repo already has a starter SQL migration for that.
+- **Without Supabase env vars:** **iPhone (installed PWA)** and **laptop browser** use **separate `localStorage`** → they **do not sync**.
+- **With Supabase** (see [SUPABASE-SYNC.md](./SUPABASE-SYNC.md)): sign in once — the **same account** sees the **same rings** on every device and browser.
 
 ## 5. Local-only testing on the phone (optional)
 

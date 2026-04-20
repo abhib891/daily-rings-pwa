@@ -21,7 +21,7 @@ The repo has **`.npmrc`** with `legacy-peer-deps=true` so **`vite-plugin-pwa`** 
    - **Build Command:** `npm run build`
    - **Output Directory:** `dist`
    - **Install Command:** `npm install`
-5. **Environment Variables:** leave empty for now (no `VITE_*` secrets required).
+5. **Environment Variables:** leave empty for the first deploy if you want **local-only** mode. To enable **sign-in and sync across devices**, add **`VITE_SUPABASE_URL`** and **`VITE_SUPABASE_ANON_KEY`** (see [SUPABASE-SYNC.md](./SUPABASE-SYNC.md)), then redeploy.
 6. Click **Deploy**. Wait for the build to finish.
 7. Open the **Production** URL shown on the success screen — it looks like **`https://<project-name>.vercel.app`**. That is your HTTPS URL for **laptop and iPhone**.
 

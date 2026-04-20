@@ -1,6 +1,9 @@
 # daily-rings-pwa
 
-Personal **PWA** for daily “rings”–style habits (exercise, read, learn/build, …). Data is in **`localStorage`** for now (per browser / per device). Optional later: **Supabase** for sync (see `supabase/migrations/`).
+Personal **PWA** for daily “rings”–style habits (exercise, read, learn/build, …).
+
+- **Without Supabase env vars:** data stays in **`localStorage`** (per browser / device).
+- **With Supabase (recommended):** sign in with **Google** or **email magic link** — habits and rings **sync everywhere** (see [SUPABASE-SYNC.md](./SUPABASE-SYNC.md)).
 
 **Prerequisites:** see [PREREQUISITES.md](./PREREQUISITES.md).  
 **Deploy to HTTPS (Vercel — recommended):** [DEPLOY-HOSTS.md](./DEPLOY-HOSTS.md).  
@@ -13,7 +16,7 @@ npm install
 npm run dev
 ```
 
-Supabase is **not** required for the current UI. When you add cloud sync, copy `.env.example` to `.env` and configure Supabase.
+Supabase is **optional** until you set **`VITE_SUPABASE_*`** on the host (or in `.env` locally). Then the UI switches to **sign-in + cloud sync**.
 
 ## Supabase schema (optional / future)
 
@@ -39,8 +42,8 @@ Replace the remote URL if your repo name differs.
 
 ## Stack
 
-- **Vite** + **React** + **TypeScript** + **`vite-plugin-pwa`** (manifest + service worker in production builds)
-- **Supabase** (optional): schema in repo; not wired in the app yet
+- **Vite** + **React** + **TypeScript** + **`vite-plugin-pwa`**
+- **Supabase** (`@supabase/supabase-js`): optional sync + auth when `VITE_SUPABASE_*` is set
 
 ## License
 

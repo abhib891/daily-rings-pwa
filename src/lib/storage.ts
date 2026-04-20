@@ -27,6 +27,11 @@ function emptyState(): AppState {
   }
 }
 
+/** Empty habits (used before cloud data loads). */
+export function emptySyncedShell(): AppState {
+  return { habits: [], entries: {} }
+}
+
 export function loadState(): AppState {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
