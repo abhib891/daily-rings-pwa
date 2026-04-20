@@ -120,6 +120,10 @@
   font-size: 0.7rem;
 }
 
+.app-footnote + .app-bottom-reminder {
+  margin-top: 1.25rem;
+}
+
 .app-title {
   font-size: 1.75rem;
   font-weight: 700;
@@ -138,6 +142,72 @@
   font-size: 0.8rem;
   color: var(--text-muted);
   line-height: 1.4;
+}
+
+.app-quote {
+  margin: 1rem 0 0;
+  padding: 1rem 1.15rem;
+  border-radius: 14px;
+  border: 1px solid var(--quote-border);
+  background: var(--quote-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 1px 12px rgba(15, 76, 129, 0.06);
+}
+
+.app-quote-text {
+  margin: 0;
+  font-size: 0.95rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--text-h);
+}
+
+.app-quote-author {
+  display: block;
+  margin: 0.65rem 0 0;
+  font-size: 0.8rem;
+  font-style: normal;
+  font-weight: 600;
+  color: var(--quote-accent);
+}
+
+.app-quote-loading {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.app-bottom {
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--ring-border);
+}
+
+.app-bottom-reminder {
+  margin: 0 0 0.75rem;
+  font-size: 0.8rem;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.app-bottom-note {
+  margin: 0;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.app-bottom-note a {
+  color: var(--focus);
+  font-weight: 600;
+}
+
+.app-bottom-reminder--center {
+  text-align: center;
+  max-width: 24rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .rings-row {

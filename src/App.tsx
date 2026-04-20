@@ -17,6 +17,7 @@ import {
   upsertDayEntry,
 } from './lib/cloudData'
 import { addDays, localDateString, parseDate } from './lib/dates'
+import { fetchDailyQuote, type DailyQuote } from './lib/dailyQuote'
 import { getSupabase } from './lib/supabaseClient'
 import {
   addHabit,
@@ -44,6 +45,39 @@ function weekdayShort(dateStr: string): string {
   return parseDate(dateStr).toLocaleDateString(undefined, { weekday: 'narrow' })
 }
 
+function MotivationQuote({
+  quote,
+  loading,
+}: {
+  quote: DailyQuote | null
+  loading: boolean
+}) {
+  return (
+    <aside className="app-quote" aria-label="Daily quote">
+      {loading || !quote ? (
+        <p className="app-quote-loading">Loading today’s quote…</p>
+      ) : (
+        <>
+          <blockquote className="app-quote-text">“{quote.text}”</blockquote>
+          <cite className="app-quote-author">— {quote.author}</cite>
+        </>
+      )}
+    </aside>
+  )
+}
+
+function NeverMissTwiceNote({ centered = false }: { centered?: boolean }) {
+  return (
+    <p
+      className={`app-bottom-reminder${centered ? ' app-bottom-reminder--center' : ''}`}
+    >
+      After you have a little history, if you missed a habit yesterday the app highlights that ring as
+      an in-app reminder so you are less likely to miss two days in a row — a &quot;never miss twice&quot;
+      nudge when you open Activity Tracker. (No email or push notifications.)
+    </p>
+  )
+}
+
 export default function App() {
   const supabase = useMemo(() => getSupabase(), [])
   const [session, setSession] = useState<Session | null>(null)
@@ -54,6 +88,8 @@ export default function App() {
   const [newName, setNewName] = useState('')
   const [cloudBusy, setCloudBusy] = useState(false)
   const [cloudError, setCloudError] = useState<string | null>(null)
+  const [dailyQuote, setDailyQuote] = useState<DailyQuote | null>(null)
+  const [quoteLoading, setQuoteLoading] = useState(true)
 
   const useCloud = Boolean(supabase && session)
   const useLocal = !supabase
@@ -117,6 +153,22 @@ export default function App() {
   useEffect(() => {
     if (useLocal) saveState(state)
   }, [state, useLocal])
+
+  useEffect(() => {
+    const ac = new AbortController()
+    let cancelled = false
+    setQuoteLoading(true)
+    void fetchDailyQuote(ac.signal).then((q) => {
+      if (!cancelled) {
+        setDailyQuote(q)
+        setQuoteLoading(false)
+      }
+    })
+    return () => {
+      cancelled = true
+      ac.abort()
+    }
+  }, [])
 
   const today = useMemo(() => localDateString(), [])
   const days = useMemo(() => weekDates(today), [today])
@@ -210,15 +262,17 @@ export default function App() {
     return (
       <div className="app">
         <header className="app-header">
-          <h1 className="app-title">Daily Rings</h1>
+          <h1 className="app-title">Activity Tracker</h1>
           <p className="app-sub">Habits that follow you everywhere</p>
         </header>
+        <MotivationQuote quote={dailyQuote} loading={quoteLoading} />
         <AuthPanel supabase={supabase} />
         <p className="app-footnote">
           Configure <code>VITE_SUPABASE_URL</code> and{' '}
           <code>VITE_SUPABASE_ANON_KEY</code> on your host (e.g. Vercel) and allow
           this URL in Supabase Auth redirect settings.
         </p>
+        <NeverMissTwiceNote centered />
       </div>
     )
   }
@@ -228,7 +282,7 @@ export default function App() {
       <header className="app-header">
         <div className="app-header-row">
           <div>
-            <h1 className="app-title">Daily Rings</h1>
+            <h1 className="app-title">Activity Tracker</h1>
             <p className="app-sub">
               Today ·{' '}
               {parseDate(today).toLocaleDateString(undefined, {
@@ -250,6 +304,7 @@ export default function App() {
           )}
         </div>
         <p className="app-hint">{hint}</p>
+        <MotivationQuote quote={dailyQuote} loading={quoteLoading} />
       </header>
 
       {cloudError && (
@@ -338,6 +393,17 @@ export default function App() {
           ))}
         </div>
       </section>
+
+      <footer className="app-bottom">
+        <NeverMissTwiceNote />
+        <p className="app-bottom-note">
+          Daily quotes load from{' '}
+          <a href="https://github.com/lukePeavey/quotable" target="_blank" rel="noreferrer">
+            Quotable
+          </a>{' '}
+          when you are online; otherwise a built-in list is used.
+        </p>
+      </footer>
     </div>
   )
 }

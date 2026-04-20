@@ -39,8 +39,8 @@ export function Ring({
       />
       <span className="ring-label">{label}</span>
       {atRisk && (
-        <span className="ring-risk" title="Missed yesterday — close today">
-          2-day miss risk
+        <span className="ring-risk" title="Missed yesterday — tap to close the ring today">
+          Never miss twice
         </span>
       )}
     </button>
