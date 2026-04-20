@@ -10,7 +10,21 @@ export async function ensureDefaultHabits(sb: SupabaseClient): Promise<void> {
 /** Merges duplicate habit rows (same name) into one; preserves completions. Idempotent. */
 export async function dedupeHabits(sb: SupabaseClient): Promise<void> {
   const { error } = await sb.rpc('dedupe_habits')
-  if (error) throw error
+  if (!error) return
+  const msg = (error.message ?? '').toLowerCase()
+  if (
+    msg.includes('dedupe_habits') &&
+    (msg.includes('does not exist') ||
+      msg.includes('unknown') ||
+      msg.includes('schema cache') ||
+      msg.includes('not found'))
+  ) {
+    console.warn(
+      '[daily-rings] dedupe_habits RPC missing — run supabase/migrations/003_dedupe_habits_rpc.sql in Supabase SQL Editor, then refresh.',
+    )
+    return
+  }
+  throw error
 }
 
 export async function fetchHabitsFromCloud(
