@@ -274,9 +274,13 @@ export default function App() {
         <header className="app-header">
           <div className="app-brand">
             <AppMark />
-            <div className="app-brand-text">
-              <h1 className="app-title">Activity Tracker</h1>
-              <p className="app-sub">Habits that follow you everywhere</p>
+            <div className="app-header-main">
+              <div className="app-header-title-row">
+                <div className="app-brand-text">
+                  <h1 className="app-title">Activity Tracker</h1>
+                  <p className="app-sub">Habits that follow you everywhere</p>
+                </div>
+              </div>
             </div>
           </div>
         </header>
@@ -295,31 +299,33 @@ export default function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <div className="app-header-row">
-          <div className="app-brand">
-            <AppMark />
-            <div className="app-brand-text">
-              <h1 className="app-title">Activity Tracker</h1>
-              <p className="app-sub">
-                Today ·{' '}
-                {parseDate(today).toLocaleDateString(undefined, {
-                  weekday: 'long',
-                  month: 'short',
-                  day: 'numeric',
-                })}
-              </p>
+        <div className="app-brand">
+          <AppMark />
+          <div className="app-header-main">
+            <div className="app-header-title-row">
+              <div className="app-brand-text">
+                <h1 className="app-title">Activity Tracker</h1>
+                <p className="app-sub">
+                  Today ·{' '}
+                  {parseDate(today).toLocaleDateString(undefined, {
+                    weekday: 'long',
+                    month: 'short',
+                    day: 'numeric',
+                  })}
+                </p>
+              </div>
+              {useCloud && session?.user && (
+                <div className="app-session">
+                  <span className="app-session-email" title={session.user.email ?? ''}>
+                    {session.user.email ?? session.user.id.slice(0, 8)}
+                  </span>
+                  <button type="button" className="sign-out-btn" onClick={() => void signOut()}>
+                    Sign out
+                  </button>
+                </div>
+              )}
             </div>
           </div>
-          {useCloud && session?.user && (
-            <div className="app-session">
-              <span className="app-session-email" title={session.user.email ?? ''}>
-                {session.user.email ?? session.user.id.slice(0, 8)}
-              </span>
-              <button type="button" className="sign-out-btn" onClick={() => void signOut()}>
-                Sign out
-              </button>
-            </div>
-          )}
         </div>
         <p className="app-hint">{hint}</p>
         <MotivationQuote quote={dailyQuote} loading={quoteLoading} />
