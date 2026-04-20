@@ -82,7 +82,7 @@ export default function App() {
     setCloudError(null)
     setCloudBusy(true)
     try {
-      await ensureDefaultHabits(supabase, session.user.id)
+      await ensureDefaultHabits(supabase)
       const habits = await fetchHabitsFromCloud(supabase, session.user.id)
       const from = addDays(localDateString(), -120)
       const to = localDateString()

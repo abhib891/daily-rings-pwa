@@ -7,13 +7,29 @@ When **`VITE_SUPABASE_URL`** and **`VITE_SUPABASE_ANON_KEY`** are set (e.g. on [
 1. [supabase.com](https://supabase.com) → **New project** → wait until it is ready.
 2. **Project Settings** → **API** → copy **Project URL** and **`anon` `public`** key.
 
-## 2. Create tables (once)
+## 2. Create tables + default-habit RPC (once)
 
-In the Supabase **SQL Editor**, run the full script in:
+In the Supabase **SQL Editor**, run in order:
 
-**[`supabase/migrations/001_initial.sql`](./supabase/migrations/001_initial.sql)**
+1. **[`supabase/migrations/001_initial.sql`](./supabase/migrations/001_initial.sql)** — `habits` + `day_entries` and RLS.  
+2. **[`supabase/migrations/002_ensure_default_habits_rpc.sql`](./supabase/migrations/002_ensure_default_habits_rpc.sql)** — `ensure_default_habits()` so default habits are created **atomically** (avoids duplicate “Exercise / Read / Learn” rows when the app loads twice in parallel).
 
-That creates `habits` and `day_entries` with **Row Level Security** so each user only sees their own rows.
+If you already have duplicate habits, run **once** in SQL Editor (keeps the row with the **smallest `id`** per user + name):
+
+```sql
+delete from public.habits h
+where exists (
+  select 1
+  from public.habits h2
+  where h2.user_id = h.user_id
+    and h2.name = h.name
+    and h2.archived = false
+    and h.archived = false
+    and h2.id < h.id
+);
+```
+
+Then refresh the app.
 
 ## 3. Auth settings (required)
 

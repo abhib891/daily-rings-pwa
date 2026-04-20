@@ -1,23 +1,9 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { AppState, Habit } from './storage'
 
-export async function ensureDefaultHabits(
-  sb: SupabaseClient,
-  userId: string,
-): Promise<void> {
-  const { count, error: cErr } = await sb
-    .from('habits')
-    .select('*', { count: 'exact', head: true })
-    .eq('user_id', userId)
-    .eq('archived', false)
-  if (cErr) throw cErr
-  if (count && count > 0) return
-
-  const { error } = await sb.from('habits').insert([
-    { user_id: userId, name: 'Exercise', sort_order: 0 },
-    { user_id: userId, name: 'Read', sort_order: 1 },
-    { user_id: userId, name: 'Learn / build', sort_order: 2 },
-  ])
+/** Uses DB RPC so default habits are created at most once (no parallel insert race). */
+export async function ensureDefaultHabits(sb: SupabaseClient): Promise<void> {
+  const { error } = await sb.rpc('ensure_default_habits')
   if (error) throw error
 }
 
