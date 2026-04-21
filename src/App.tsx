@@ -4,6 +4,7 @@ import type { Session } from '@supabase/supabase-js'
 import { AppMark } from './components/AppMark'
 import { AuthPanel } from './components/AuthPanel'
 import { GoalLineCard, type GoalSaveStatus } from './components/GoalLineCard'
+import { MasterStatusRing } from './components/MasterStatusRing'
 import { Ring } from './components/Ring'
 import {
   dedupeHabits,
@@ -234,6 +235,24 @@ export default function App() {
   const sortedHabits = useMemo(
     () => [...state.habits].sort((a, b) => a.sortOrder - b.sortOrder),
     [state.habits],
+  )
+
+  const masterRingLayers = useMemo(
+    () =>
+      sortedHabits.map((h, i) => ({
+        id: h.id,
+        closed: isCompleted(state, h.id, today),
+        accent: ringAccents[i % ringAccents.length]!,
+      })),
+    [sortedHabits, state, today, ringAccents],
+  )
+
+  const masterRingAnyAtRisk = useMemo(
+    () =>
+      sortedHabits.some(
+        (h) => doubleMissRisk(state, h.id, today) && !isCompleted(state, h.id, today),
+      ),
+    [sortedHabits, state, today],
   )
 
   const greetingName = useMemo(
@@ -483,6 +502,9 @@ export default function App() {
       <div className="app-body">
         <div className="app-body-main">
           <section className="rings-row" aria-label="Today’s habits">
+            {sortedHabits.length > 0 && (
+              <MasterStatusRing layers={masterRingLayers} anyAtRisk={masterRingAnyAtRisk} />
+            )}
             {sortedHabits.map((h, i) => {
               const closed = isCompleted(state, h.id, today)
               const risk = doubleMissRisk(state, h.id, today)
