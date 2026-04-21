@@ -68,9 +68,12 @@ function NeverMissTwiceNote({ centered = false }: { centered?: boolean }) {
     <p
       className={`app-bottom-reminder${centered ? ' app-bottom-reminder--center' : ''}`}
     >
-      After you have a little history, if you missed a habit yesterday the app highlights that ring as
-      an in-app reminder so you are less likely to miss two days in a row — a &quot;never miss twice&quot;
-      nudge when you open Activity Tracker. (No email or push notifications.)
+      <strong>Never Miss Twice Nudge:</strong>{' '}
+      <em>
+        Once you have a little history, if you missed a habit yesterday the app highlights that ring as
+        an in-app reminder so you are less likely to miss two days in a row. (No email or push
+        notifications.)
+      </em>
     </p>
   )
 }
