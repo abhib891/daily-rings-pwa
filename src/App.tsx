@@ -341,9 +341,16 @@ export default function App() {
         </div>
         <p className="app-hint">{hint}</p>
         {useCloud && session?.user && (
-          <p className="app-greeting" role="status">
-            Welcome {greetingName}, how are you doing today?
-          </p>
+          <section
+            className="app-greeting-card"
+            role="status"
+            aria-label={`Welcome, ${greetingName}. How are you doing today?`}
+          >
+            <p className="app-greeting-lead">
+              Welcome, <span className="app-greeting-name">{greetingName}</span>
+            </p>
+            <p className="app-greeting-sub">How are you doing today?</p>
+          </section>
         )}
         <MotivationQuote quote={dailyQuote} loading={quoteLoading} />
       </header>

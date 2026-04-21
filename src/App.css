@@ -310,13 +310,74 @@
   box-shadow: var(--shadow-sm);
 }
 
-.app-greeting {
-  margin: 0.75rem 0 0;
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.35;
+.app-greeting-card {
+  margin: 1rem 0 0;
+  padding: 1.05rem 1.2rem 1.1rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--ring-border);
+  border-left: 3px solid #10b981;
+  background: linear-gradient(
+    118deg,
+    rgba(16, 185, 129, 0.14) 0%,
+    rgba(255, 255, 255, 0.88) 42%,
+    rgba(59, 130, 246, 0.1) 100%
+  );
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+@media (prefers-color-scheme: dark) {
+  .app-greeting-card {
+    background: linear-gradient(
+      118deg,
+      rgba(16, 185, 129, 0.18) 0%,
+      rgba(30, 41, 59, 0.88) 48%,
+      rgba(59, 130, 246, 0.14) 100%
+    );
+    border-left-color: #34d399;
+  }
+}
+
+.app-greeting-lead {
+  margin: 0;
+  font-size: 1.12rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
   color: var(--text-h);
+}
+
+.app-greeting-name {
+  font-weight: 800;
+  background: linear-gradient(115deg, #0f766e 0%, #1d4ed8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (prefers-color-scheme: dark) {
+  .app-greeting-name {
+    background: linear-gradient(115deg, #5eead4 0%, #93c5fd 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .app-greeting-name {
+    color: var(--text-h);
+    background: none;
+  }
+}
+
+.app-greeting-sub {
+  margin: 0.45rem 0 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--text-muted);
 }
 
 .app-quote {
