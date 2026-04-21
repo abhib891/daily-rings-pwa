@@ -14,6 +14,7 @@ import {
 } from './lib/cloudData'
 import { addDays, localDateString, parseDate } from './lib/dates'
 import { fetchDailyQuote, type DailyQuote } from './lib/dailyQuote'
+import { firstNameFromUser } from './lib/greeting'
 import { getSupabase } from './lib/supabaseClient'
 import {
   doubleMissRisk,
@@ -171,6 +172,11 @@ export default function App() {
   const sortedHabits = useMemo(
     () => [...state.habits].sort((a, b) => a.sortOrder - b.sortOrder),
     [state.habits],
+  )
+
+  const greetingName = useMemo(
+    () => (session?.user ? firstNameFromUser(session.user) : ''),
+    [session?.user],
   )
 
   const applyToggle = useCallback(
@@ -334,6 +340,11 @@ export default function App() {
           </div>
         </div>
         <p className="app-hint">{hint}</p>
+        {useCloud && session?.user && (
+          <p className="app-greeting" role="status">
+            Welcome {greetingName}, how are you doing today?
+          </p>
+        )}
         <MotivationQuote quote={dailyQuote} loading={quoteLoading} />
       </header>
 
