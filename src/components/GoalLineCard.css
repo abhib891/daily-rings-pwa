@@ -3,17 +3,11 @@
   padding: 1.05rem 1.15rem 1rem;
   border-radius: var(--radius-lg);
   border: 1px solid var(--quote-border);
-  border-left: 3px solid #a855f7;
+  border-left: 3px solid var(--goal-card-accent, #a855f7);
   background: var(--quote-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: var(--shadow-md);
-}
-
-@media (prefers-color-scheme: dark) {
-  .app-goal-card {
-    border-left-color: #c084fc;
-  }
 }
 
 .app-goal-title {
@@ -63,13 +57,7 @@
 .app-goal-input:focus-visible {
   outline: none;
   border-color: var(--focus);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
-}
-
-@media (prefers-color-scheme: dark) {
-  .app-goal-input:focus-visible {
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.22);
-  }
+  box-shadow: 0 0 0 3px var(--goal-card-focus-ring, rgba(37, 99, 235, 0.18));
 }
 
 .app-goal-input:disabled {

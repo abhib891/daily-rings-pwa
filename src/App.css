@@ -107,32 +107,20 @@
 }
 
 .app-mark-ring--outer {
-  stroke: #ff375f;
+  stroke: var(--mark-ring-outer, #ff375f);
 }
 
 .app-mark-ring--mid {
-  stroke: #30d158;
+  stroke: var(--mark-ring-mid, #30d158);
 }
 
 .app-mark-ring--inner {
-  stroke: #0a84ff;
+  stroke: var(--mark-ring-inner, #0a84ff);
 }
 
 @media (prefers-color-scheme: dark) {
   .app-mark {
     filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.4));
-  }
-
-  .app-mark-ring--outer {
-    stroke: #ff6b8a;
-  }
-
-  .app-mark-ring--mid {
-    stroke: #4ade80;
-  }
-
-  .app-mark-ring--inner {
-    stroke: #60a5fa;
   }
 }
 
@@ -263,23 +251,17 @@
 
 .app-title {
   font-size: 1.85rem;
-  font-weight: 700;
-  letter-spacing: -0.035em;
-  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.12;
   margin: 0 0 0.35rem;
-  background: linear-gradient(115deg, #0f172a 0%, #475569 100%);
+  background: var(
+    --app-title-gradient,
+    linear-gradient(115deg, #0f172a 0%, #475569 100%)
+  );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-}
-
-@media (prefers-color-scheme: dark) {
-  .app-title {
-    background: linear-gradient(115deg, #f8fafc 0%, #94a3b8 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
 }
 
 @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
@@ -320,28 +302,19 @@
   padding: 1.05rem 1.2rem 1.1rem;
   border-radius: var(--radius-lg);
   border: 1px solid var(--ring-border);
-  border-left: 3px solid #10b981;
-  background: linear-gradient(
-    118deg,
-    rgba(16, 185, 129, 0.14) 0%,
-    rgba(255, 255, 255, 0.88) 42%,
-    rgba(59, 130, 246, 0.1) 100%
+  border-left: 3px solid var(--app-greeting-border-accent, #10b981);
+  background: var(
+    --app-greeting-bg,
+    linear-gradient(
+      118deg,
+      rgba(16, 185, 129, 0.14) 0%,
+      rgba(255, 255, 255, 0.88) 42%,
+      rgba(59, 130, 246, 0.1) 100%
+    )
   );
   box-shadow: var(--shadow-md);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-}
-
-@media (prefers-color-scheme: dark) {
-  .app-greeting-card {
-    background: linear-gradient(
-      118deg,
-      rgba(16, 185, 129, 0.18) 0%,
-      rgba(30, 41, 59, 0.88) 48%,
-      rgba(59, 130, 246, 0.14) 100%
-    );
-    border-left-color: #34d399;
-  }
 }
 
 .app-greeting-lead {
@@ -355,19 +328,13 @@
 
 .app-greeting-name {
   font-weight: 800;
-  background: linear-gradient(115deg, #0f766e 0%, #1d4ed8 100%);
+  background: var(
+    --app-greeting-name-gradient,
+    linear-gradient(115deg, #0f766e 0%, #1d4ed8 100%)
+  );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-}
-
-@media (prefers-color-scheme: dark) {
-  .app-greeting-name {
-    background: linear-gradient(115deg, #5eead4 0%, #93c5fd 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
 }
 
 @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
@@ -390,17 +357,11 @@
   padding: 1.1rem 1.15rem 1.1rem 1.2rem;
   border-radius: var(--radius-lg);
   border: 1px solid var(--quote-border);
-  border-left: 3px solid #3b82f6;
+  border-left: 3px solid var(--app-quote-border-accent, #3b82f6);
   background: var(--quote-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: var(--shadow-md);
-}
-
-@media (prefers-color-scheme: dark) {
-  .app-quote {
-    border-left-color: #60a5fa;
-  }
 }
 
 .app-quote-text {

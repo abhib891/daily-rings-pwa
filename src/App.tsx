@@ -36,7 +36,7 @@ import {
 } from './lib/storage'
 import './App.css'
 
-const ACCENTS = ['#ff375f', '#30d158', '#0a84ff', '#bf5af2', '#ff9f0a']
+const ACCENTS = ['#fb7185', '#a3e635', '#22d3ee', '#e879f9', '#fbbf24']
 
 function weekDates(endingOn: string): string[] {
   const out: string[] = []

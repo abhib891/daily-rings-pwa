@@ -60,13 +60,7 @@
 .auth-input:focus-visible {
   outline: none;
   border-color: var(--focus);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
-}
-
-@media (prefers-color-scheme: dark) {
-  .auth-input:focus-visible {
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
-  }
+  box-shadow: 0 0 0 3px var(--focus-ring-soft, rgba(37, 99, 235, 0.2));
 }
 
 .auth-email-form {
@@ -124,17 +118,11 @@
 .auth-btn-primary {
   background: linear-gradient(165deg, var(--btn-bg-hover, #2563eb) 0%, var(--btn-bg) 100%);
   color: var(--btn-fg);
-  box-shadow: 0 2px 8px rgba(30, 64, 175, 0.35);
+  box-shadow: var(--btn-primary-shadow, 0 2px 8px rgba(30, 64, 175, 0.35));
 }
 
 .auth-btn-primary:not(:disabled):hover {
   filter: brightness(1.06);
-}
-
-@media (prefers-color-scheme: dark) {
-  .auth-btn-primary {
-    box-shadow: 0 2px 12px rgba(59, 130, 246, 0.25);
-  }
 }
 
 .auth-divider {
