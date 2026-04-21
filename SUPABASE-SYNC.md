@@ -2,6 +2,8 @@
 
 When **`VITE_SUPABASE_URL`** and **`VITE_SUPABASE_ANON_KEY`** are set (e.g. on [Vercel](https://vercel.com) → Project → **Settings** → **Environment Variables**), the app shows **sign-in** and stores habits + completions in **Supabase** instead of only `localStorage`. The same account sees the same data in **Chrome, Safari, phone, and laptop**.
 
+The **Remember your goal** one-liner (under the daily quote) is saved to **Auth user metadata** as `goal_oneliner` via `auth.updateUser` — no extra Postgres table. It syncs with the same signed-in account across devices.
+
 ## 1. Create a Supabase project
 
 1. [supabase.com](https://supabase.com) → **New project** → wait until it is ready.

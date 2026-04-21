@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import type { Session } from '@supabase/supabase-js'
 import { AppMark } from './components/AppMark'
 import { AuthPanel } from './components/AuthPanel'
+import { GoalLineCard, type GoalSaveStatus } from './components/GoalLineCard'
 import { Ring } from './components/Ring'
 import {
   dedupeHabits,
@@ -15,6 +16,12 @@ import {
 import { addDays, localDateString, parseDate } from './lib/dates'
 import { fetchDailyQuote, type DailyQuote } from './lib/dailyQuote'
 import { firstNameFromUser } from './lib/greeting'
+import {
+  GOAL_LINE_META_KEY,
+  readGoalLineFromStorage,
+  readGoalLineFromUser,
+  writeGoalLineToStorage,
+} from './lib/goalLine'
 import { getSupabase } from './lib/supabaseClient'
 import {
   doubleMissRisk,
@@ -89,6 +96,8 @@ export default function App() {
   const [cloudError, setCloudError] = useState<string | null>(null)
   const [dailyQuote, setDailyQuote] = useState<DailyQuote | null>(null)
   const [quoteLoading, setQuoteLoading] = useState(true)
+  const [goalLine, setGoalLine] = useState('')
+  const [goalSaveStatus, setGoalSaveStatus] = useState<GoalSaveStatus>('idle')
 
   const useCloud = Boolean(supabase && session)
   const useLocal = !supabase
@@ -169,6 +178,18 @@ export default function App() {
     }
   }, [])
 
+  useEffect(() => {
+    if (supabase && session?.user) {
+      setGoalLine(readGoalLineFromUser(session.user))
+      setGoalSaveStatus('idle')
+      return
+    }
+    if (!supabase) {
+      setGoalLine(readGoalLineFromStorage())
+      setGoalSaveStatus('idle')
+    }
+  }, [supabase, session?.user, session?.user?.user_metadata])
+
   const today = useMemo(() => localDateString(), [])
   const days = useMemo(() => weekDates(today), [today])
 
@@ -181,6 +202,37 @@ export default function App() {
     () => (session?.user ? firstNameFromUser(session.user) : ''),
     [session?.user],
   )
+
+  const persistGoalLine = useCallback(async () => {
+    const trimmed = goalLine.trim()
+    if (useCloud && supabase && session) {
+      const prev = readGoalLineFromUser(session.user)
+      if (prev === trimmed) return
+      setGoalSaveStatus('saving')
+      setCloudError(null)
+      const { data, error } = await supabase.auth.updateUser({
+        data: { [GOAL_LINE_META_KEY]: trimmed },
+      })
+      if (error) {
+        setGoalSaveStatus('error')
+        setCloudError(error.message)
+        return
+      }
+      setGoalSaveStatus('saved')
+      window.setTimeout(() => setGoalSaveStatus('idle'), 2200)
+      if (data.user) {
+        setSession((prev) => (prev ? { ...prev, user: data.user } : null))
+      }
+      return
+    }
+    if (!supabase) {
+      const prev = readGoalLineFromStorage()
+      if (prev === trimmed) return
+      writeGoalLineToStorage(trimmed)
+      setGoalSaveStatus('saved')
+      window.setTimeout(() => setGoalSaveStatus('idle'), 1800)
+    }
+  }, [goalLine, useCloud, supabase, session])
 
   const applyToggle = useCallback(
     async (habitId: string) => {
@@ -356,6 +408,16 @@ export default function App() {
           </section>
         )}
         <MotivationQuote quote={dailyQuote} loading={quoteLoading} />
+        {((useCloud && session) || useLocal) && (
+          <GoalLineCard
+            value={goalLine}
+            onChange={setGoalLine}
+            onSave={() => void persistGoalLine()}
+            saveStatus={goalSaveStatus}
+            persistedLocally={useLocal}
+            disabled={cloudBusy}
+          />
+        )}
       </header>
 
       {cloudError && (

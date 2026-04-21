@@ -1,0 +1,130 @@
+.app-goal-card {
+  margin: 1rem 0 0;
+  padding: 1.05rem 1.15rem 1rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--quote-border);
+  border-left: 3px solid #a855f7;
+  background: var(--quote-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-md);
+}
+
+@media (prefers-color-scheme: dark) {
+  .app-goal-card {
+    border-left-color: #c084fc;
+  }
+}
+
+.app-goal-title {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-h);
+}
+
+.app-goal-sub {
+  margin: 0 0 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+
+.app-goal-input {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0.65rem 0.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--ring-border);
+  background: var(--input-bg);
+  color: var(--text-h);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.45;
+  resize: vertical;
+  min-height: 3.25rem;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.15s ease;
+}
+
+.app-goal-input::placeholder {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.app-goal-input:hover:not(:disabled) {
+  border-color: var(--ring-border-hover);
+}
+
+.app-goal-input:focus-visible {
+  outline: none;
+  border-color: var(--focus);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+}
+
+@media (prefers-color-scheme: dark) {
+  .app-goal-input:focus-visible {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.22);
+  }
+}
+
+.app-goal-input:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.app-goal-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 0.75rem;
+  margin-top: 0.65rem;
+}
+
+.app-goal-status {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--week-done);
+}
+
+.app-goal-count {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.app-goal-save {
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--ring-border);
+  background: var(--ring-card-bg);
+  color: var(--text-h);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition:
+    border-color 0.15s ease,
+    transform 0.12s ease;
+}
+
+.app-goal-save:hover:not(:disabled) {
+  border-color: var(--ring-border-hover);
+}
+
+.app-goal-save:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.app-goal-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
