@@ -511,9 +511,59 @@
   margin-bottom: 0;
 }
 
+/* Master + habits: one row, larger summary ring, equal smaller habit rings */
+.rings-row--with-master {
+  --master-ring-stack-size: 6.5rem;
+  --habit-ring-donut-size: 3.875rem;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0.45rem;
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 0.15rem;
+  scrollbar-gutter: stable;
+}
+
+.rings-row--with-master > .master-ring-card {
+  flex: 0 0 auto;
+  min-width: 5.75rem;
+  padding: 0.65rem 0.4rem 0.55rem;
+}
+
+.rings-row--with-master > .ring-card:not(.master-ring-card) {
+  flex: 1 1 4rem;
+  min-width: 3.65rem;
+  max-width: 5.85rem;
+  padding: 0.6rem 0.35rem 0.5rem;
+}
+
+.rings-row--with-master > .ring-card:not(.master-ring-card) .ring-donut {
+  width: var(--habit-ring-donut-size);
+  height: var(--habit-ring-donut-size);
+}
+
+.rings-row--with-master > .ring-card:not(.master-ring-card) .ring-label-btn {
+  max-width: 5.25rem;
+  font-size: 0.72rem;
+}
+
 @media (max-width: 24rem) {
-  .rings-row {
+  .rings-row:not(.rings-row--with-master) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .rings-row--with-master {
+    --master-ring-stack-size: 6.125rem;
+    --habit-ring-donut-size: 3.625rem;
+    gap: 0.35rem;
+  }
+
+  .rings-row--with-master > .ring-card:not(.master-ring-card) {
+    max-width: 5.25rem;
+    padding: 0.55rem 0.28rem 0.45rem;
   }
 }
 
@@ -522,10 +572,27 @@
     grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
     gap: 1.1rem;
   }
+
+  .rings-row--with-master {
+    --master-ring-stack-size: 7.125rem;
+    --habit-ring-donut-size: 4.375rem;
+    gap: 0.65rem;
+    justify-content: flex-start;
+  }
+
+  .rings-row--with-master > .ring-card:not(.master-ring-card) {
+    max-width: 6.75rem;
+    padding: 0.85rem 0.45rem 0.75rem;
+  }
+
+  .rings-row--with-master > .ring-card:not(.master-ring-card) .ring-label-btn {
+    max-width: 6.25rem;
+    font-size: 0.78rem;
+  }
 }
 
 @media (min-width: 1100px) {
-  .rings-row {
+  .rings-row:not(.rings-row--with-master) {
     grid-template-columns: repeat(auto-fill, minmax(8.25rem, 1fr));
     gap: 1.25rem;
   }

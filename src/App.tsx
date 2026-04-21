@@ -501,7 +501,12 @@ export default function App() {
 
       <div className="app-body">
         <div className="app-body-main">
-          <section className="rings-row" aria-label="Today’s habits">
+          <section
+            className={
+              sortedHabits.length > 0 ? 'rings-row rings-row--with-master' : 'rings-row'
+            }
+            aria-label="Today’s habits"
+          >
             {sortedHabits.length > 0 && (
               <MasterStatusRing layers={masterRingLayers} anyAtRisk={masterRingAnyAtRisk} />
             )}

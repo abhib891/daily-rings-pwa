@@ -8,17 +8,10 @@
 
 .master-ring-stack {
   position: relative;
-  width: 92px;
-  height: 92px;
+  width: var(--master-ring-stack-size, 92px);
+  height: var(--master-ring-stack-size, 92px);
   margin: 0 auto;
   flex-shrink: 0;
-}
-
-@media (min-width: 960px) {
-  .master-ring-stack {
-    width: 100px;
-    height: 100px;
-  }
 }
 
 .master-ring-layer-wrap {
