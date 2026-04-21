@@ -24,7 +24,7 @@ export function GoalLineCard({
   return (
     <section className="app-goal-card" aria-labelledby="app-goal-title">
       <h2 id="app-goal-title" className="app-goal-title">
-        Remember your goal
+        Remember why you need to do it every day
       </h2>
       <p className="app-goal-sub">Add one line that stays with you until you change it.</p>
       <label htmlFor="app-goal-input" className="sr-only">
