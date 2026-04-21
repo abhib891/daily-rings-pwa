@@ -24,6 +24,7 @@ import {
   writeGoalLineToStorage,
 } from './lib/goalLine'
 import { getSupabase } from './lib/supabaseClient'
+import { THEME_RING_ACCENTS } from './lib/themePreview'
 import {
   doubleMissRisk,
   emptySyncedShell,
@@ -34,9 +35,8 @@ import {
   setCompleted,
   type AppState,
 } from './lib/storage'
+import { useAppTheme } from './ThemeContext'
 import './App.css'
-
-const ACCENTS = ['#fb7185', '#a3e635', '#22d3ee', '#e879f9', '#fbbf24']
 
 function weekDates(endingOn: string): string[] {
   const out: string[] = []
@@ -87,6 +87,8 @@ function NeverMissTwiceNote({ centered = false }: { centered?: boolean }) {
 }
 
 export default function App() {
+  const { themeId } = useAppTheme()
+  const ringAccents = THEME_RING_ACCENTS[themeId]
   const supabase = useMemo(() => getSupabase(), [])
   const [session, setSession] = useState<Session | null>(null)
   const [authReady, setAuthReady] = useState(!supabase)
@@ -484,7 +486,7 @@ export default function App() {
             {sortedHabits.map((h, i) => {
               const closed = isCompleted(state, h.id, today)
               const risk = doubleMissRisk(state, h.id, today)
-              const accent = ACCENTS[i % ACCENTS.length]
+              const accent = ringAccents[i % ringAccents.length]!
               const track = 'var(--ring-track-muted)'
               return (
                 <Ring

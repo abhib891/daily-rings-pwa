@@ -1,0 +1,518 @@
+/* Theme tokens: switch with <html data-theme="…"> (see ThemePreviewBar). */
+
+html[data-theme='calm'] {
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --text-h: #0a1628;
+  --text: #3d4d63;
+  --text-muted: #64748b;
+  --bg: #dbeafe;
+  --bg-gradient-mid: #eff6ff;
+  --bg-gradient-end: #e0f0fe;
+  --bg-glow: rgba(59, 130, 246, 0.15);
+  --bg-corner-tint: rgba(59, 130, 246, 0);
+  --ring-border: rgba(148, 163, 184, 0.45);
+  --ring-border-hover: rgba(100, 116, 139, 0.5);
+  --ring-card-bg: rgba(255, 255, 255, 0.78);
+  --ring-track-muted: #e2e8f0;
+  --ring-label-hover-bg: rgba(37, 99, 235, 0.08);
+  --input-bg: rgba(255, 255, 255, 0.92);
+  --btn-bg: #1e40af;
+  --btn-bg-hover: #1d4ed8;
+  --btn-fg: #fff;
+  --focus: #2563eb;
+  --focus-ring-soft: rgba(37, 99, 235, 0.2);
+  --risk-border: #fecaca;
+  --risk-glow: rgba(239, 68, 68, 0.2);
+  --risk-text: #b91c1c;
+  --week-open: #94a3b8;
+  --week-done: #059669;
+  --week-today-bg: rgba(37, 99, 235, 0.08);
+  --quote-bg: rgba(255, 255, 255, 0.65);
+  --quote-border: rgba(148, 163, 184, 0.35);
+  --quote-accent: #1d4ed8;
+  --quote-bar: linear-gradient(180deg, #3b82f6 0%, #1d4ed8 100%);
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.06), 0 10px 24px -6px rgba(30, 64, 175, 0.1);
+  --shadow-lg: 0 12px 40px -12px rgba(15, 23, 42, 0.12), 0 4px 16px rgba(30, 64, 175, 0.08);
+  --mark-ring-outer: #ff375f;
+  --mark-ring-mid: #30d158;
+  --mark-ring-inner: #0a84ff;
+  --app-title-gradient: linear-gradient(115deg, #0f172a 0%, #475569 100%);
+  --app-greeting-border-accent: #10b981;
+  --app-greeting-bg: linear-gradient(
+    118deg,
+    rgba(16, 185, 129, 0.14) 0%,
+    rgba(255, 255, 255, 0.88) 42%,
+    rgba(59, 130, 246, 0.1) 100%
+  );
+  --app-greeting-name-gradient: linear-gradient(115deg, #0f766e 0%, #1d4ed8 100%);
+  --app-quote-border-accent: #3b82f6;
+  --goal-card-accent: #a855f7;
+  --goal-card-focus-ring: rgba(37, 99, 235, 0.18);
+  --btn-primary-shadow: 0 2px 8px rgba(30, 64, 175, 0.35);
+}
+
+html[data-theme='aurora'] {
+  --font-sans: 'Outfit', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --text-h: #14081f;
+  --text: #3f3556;
+  --text-muted: #6b5f7f;
+  --bg: #f4e8ff;
+  --bg-gradient-mid: #fff5fb;
+  --bg-gradient-end: #d8faf8;
+  --bg-glow: rgba(168, 85, 247, 0.28);
+  --bg-corner-tint: rgba(34, 211, 238, 0.14);
+  --ring-border: rgba(124, 58, 237, 0.22);
+  --ring-border-hover: rgba(147, 51, 234, 0.42);
+  --ring-card-bg: rgba(255, 255, 255, 0.88);
+  --ring-track-muted: #ebe4f5;
+  --ring-label-hover-bg: rgba(124, 58, 237, 0.1);
+  --input-bg: rgba(255, 255, 255, 0.95);
+  --btn-bg: #7c3aed;
+  --btn-bg-hover: #9333ea;
+  --btn-fg: #fff;
+  --focus: #c026d3;
+  --focus-ring-soft: rgba(192, 38, 211, 0.22);
+  --risk-border: #fecdd3;
+  --risk-glow: rgba(244, 63, 94, 0.18);
+  --risk-text: #be123c;
+  --week-open: #9b8ab5;
+  --week-done: #059669;
+  --week-today-bg: rgba(124, 58, 237, 0.12);
+  --quote-bg: rgba(255, 255, 255, 0.75);
+  --quote-border: rgba(168, 85, 247, 0.32);
+  --quote-accent: #86198f;
+  --quote-bar: linear-gradient(180deg, #d946ef 0%, #7c3aed 100%);
+  --shadow-sm: 0 1px 2px rgba(24, 6, 54, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(24, 6, 54, 0.07), 0 12px 28px -8px rgba(124, 58, 237, 0.18);
+  --shadow-lg: 0 14px 44px -10px rgba(88, 28, 135, 0.22), 0 4px 18px rgba(13, 148, 136, 0.08);
+  --mark-ring-outer: #fb7185;
+  --mark-ring-mid: #bef264;
+  --mark-ring-inner: #22d3ee;
+  --app-title-gradient: linear-gradient(115deg, #3b0764 0%, #a21caf 40%, #0f766e 100%);
+  --app-greeting-border-accent: #e879f9;
+  --app-greeting-bg: linear-gradient(
+    118deg,
+    rgba(192, 38, 211, 0.14) 0%,
+    rgba(255, 255, 255, 0.92) 44%,
+    rgba(34, 211, 238, 0.16) 100%
+  );
+  --app-greeting-name-gradient: linear-gradient(115deg, #86198f 0%, #0d9488 100%);
+  --app-quote-border-accent: #06b6d4;
+  --goal-card-accent: #c026d3;
+  --goal-card-focus-ring: rgba(192, 38, 211, 0.28);
+  --btn-primary-shadow: 0 2px 14px rgba(91, 33, 182, 0.38);
+}
+
+html[data-theme='sunrise'] {
+  --font-sans: 'Outfit', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --text-h: #1a0a12;
+  --text: #5c3d45;
+  --text-muted: #8b5a5f;
+  --bg: #fff4ed;
+  --bg-gradient-mid: #fffbeb;
+  --bg-gradient-end: #ffe4e6;
+  --bg-glow: rgba(251, 113, 133, 0.22);
+  --bg-corner-tint: rgba(251, 191, 36, 0.18);
+  --ring-border: rgba(251, 146, 60, 0.28);
+  --ring-border-hover: rgba(234, 88, 12, 0.38);
+  --ring-card-bg: rgba(255, 255, 255, 0.9);
+  --ring-track-muted: #ffe8dc;
+  --ring-label-hover-bg: rgba(251, 146, 60, 0.12);
+  --input-bg: rgba(255, 255, 255, 0.96);
+  --btn-bg: #ea580c;
+  --btn-bg-hover: #f97316;
+  --btn-fg: #fff;
+  --focus: #db2777;
+  --focus-ring-soft: rgba(219, 39, 119, 0.22);
+  --risk-border: #fecdd3;
+  --risk-glow: rgba(244, 63, 94, 0.16);
+  --risk-text: #be123c;
+  --week-open: #b08994;
+  --week-done: #ca8a04;
+  --week-today-bg: rgba(234, 88, 12, 0.12);
+  --quote-bg: rgba(255, 255, 255, 0.82);
+  --quote-border: rgba(251, 113, 133, 0.35);
+  --quote-accent: #c2410c;
+  --quote-bar: linear-gradient(180deg, #fb7185 0%, #ea580c 100%);
+  --shadow-sm: 0 1px 2px rgba(67, 20, 7, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(67, 20, 7, 0.06), 0 12px 28px -8px rgba(234, 88, 12, 0.14);
+  --shadow-lg: 0 14px 40px -10px rgba(194, 65, 12, 0.18);
+  --mark-ring-outer: #fb7185;
+  --mark-ring-mid: #fbbf24;
+  --mark-ring-inner: #fb923c;
+  --app-title-gradient: linear-gradient(115deg, #831843 0%, #ea580c 45%, #ca8a04 100%);
+  --app-greeting-border-accent: #fb923c;
+  --app-greeting-bg: linear-gradient(
+    118deg,
+    rgba(251, 113, 133, 0.16) 0%,
+    rgba(255, 255, 255, 0.94) 46%,
+    rgba(251, 191, 36, 0.14) 100%
+  );
+  --app-greeting-name-gradient: linear-gradient(115deg, #e11d48 0%, #ea580c 100%);
+  --app-quote-border-accent: #f59e0b;
+  --goal-card-accent: #db2777;
+  --goal-card-focus-ring: rgba(219, 39, 119, 0.25);
+  --btn-primary-shadow: 0 2px 14px rgba(234, 88, 12, 0.35);
+}
+
+html[data-theme='neon'] {
+  --font-sans: 'Outfit', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --text-h: #0f172a;
+  --text: #334155;
+  --text-muted: #64748b;
+  --bg: #f1f5f9;
+  --bg-gradient-mid: #e2e8f0;
+  --bg-gradient-end: #dbeafe;
+  --bg-glow: rgba(132, 204, 22, 0.14);
+  --bg-corner-tint: rgba(34, 211, 238, 0.12);
+  --ring-border: rgba(51, 65, 85, 0.2);
+  --ring-border-hover: rgba(14, 165, 233, 0.35);
+  --ring-card-bg: rgba(255, 255, 255, 0.92);
+  --ring-track-muted: #e2e8f0;
+  --ring-label-hover-bg: rgba(34, 197, 94, 0.1);
+  --input-bg: rgba(255, 255, 255, 0.96);
+  --btn-bg: #0f172a;
+  --btn-bg-hover: #1e293b;
+  --btn-fg: #ecfccb;
+  --focus: #22c55e;
+  --focus-ring-soft: rgba(34, 197, 94, 0.22);
+  --risk-border: #fecaca;
+  --risk-glow: rgba(248, 113, 113, 0.15);
+  --risk-text: #b91c1c;
+  --week-open: #94a3b8;
+  --week-done: #16a34a;
+  --week-today-bg: rgba(34, 197, 94, 0.12);
+  --quote-bg: rgba(255, 255, 255, 0.88);
+  --quote-border: rgba(14, 165, 233, 0.25);
+  --quote-accent: #0e7490;
+  --quote-bar: linear-gradient(180deg, #22d3ee 0%, #0f766e 100%);
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 10px 24px -6px rgba(14, 165, 233, 0.12);
+  --shadow-lg: 0 14px 40px -12px rgba(15, 23, 42, 0.12);
+  --mark-ring-outer: #a3e635;
+  --mark-ring-mid: #22d3ee;
+  --mark-ring-inner: #f472b6;
+  --app-title-gradient: linear-gradient(115deg, #0f172a 0%, #0e7490 42%, #65a30d 100%);
+  --app-greeting-border-accent: #84cc16;
+  --app-greeting-bg: linear-gradient(
+    118deg,
+    rgba(132, 204, 22, 0.14) 0%,
+    rgba(255, 255, 255, 0.95) 46%,
+    rgba(34, 211, 238, 0.12) 100%
+  );
+  --app-greeting-name-gradient: linear-gradient(115deg, #15803d 0%, #0e7490 100%);
+  --app-quote-border-accent: #22c55e;
+  --goal-card-accent: #0ea5e9;
+  --goal-card-focus-ring: rgba(14, 165, 233, 0.25);
+  --btn-primary-shadow: 0 2px 14px rgba(15, 23, 42, 0.25);
+}
+
+html[data-theme='volt'] {
+  --font-sans: 'Outfit', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --text-h: #042f2e;
+  --text: #115e59;
+  --text-muted: #5f7a78;
+  --bg: #ccfbf1;
+  --bg-gradient-mid: #ecfdf5;
+  --bg-gradient-end: #fce7f3;
+  --bg-glow: rgba(20, 184, 166, 0.22);
+  --bg-corner-tint: rgba(244, 63, 94, 0.1);
+  --ring-border: rgba(15, 118, 110, 0.22);
+  --ring-border-hover: rgba(13, 148, 136, 0.4);
+  --ring-card-bg: rgba(255, 255, 255, 0.9);
+  --ring-track-muted: #d1fae5;
+  --ring-label-hover-bg: rgba(20, 184, 166, 0.12);
+  --input-bg: rgba(255, 255, 255, 0.96);
+  --btn-bg: #0f766e;
+  --btn-bg-hover: #14b8a6;
+  --btn-fg: #fff;
+  --focus: #e11d48;
+  --focus-ring-soft: rgba(225, 29, 72, 0.2);
+  --risk-border: #fecdd3;
+  --risk-glow: rgba(244, 63, 94, 0.14);
+  --risk-text: #be123c;
+  --week-open: #6b8f8c;
+  --week-done: #0d9488;
+  --week-today-bg: rgba(225, 29, 72, 0.08);
+  --quote-bg: rgba(255, 255, 255, 0.82);
+  --quote-border: rgba(20, 184, 166, 0.28);
+  --quote-accent: #0f766e;
+  --quote-bar: linear-gradient(180deg, #14b8a6 0%, #be123c 100%);
+  --shadow-sm: 0 1px 2px rgba(4, 47, 46, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(4, 47, 46, 0.06), 0 12px 28px -8px rgba(20, 184, 166, 0.16);
+  --shadow-lg: 0 14px 40px -10px rgba(15, 118, 110, 0.2);
+  --mark-ring-outer: #f43f5e;
+  --mark-ring-mid: #2dd4bf;
+  --mark-ring-inner: #fb7185;
+  --app-title-gradient: linear-gradient(115deg, #134e4a 0%, #0d9488 38%, #be123c 100%);
+  --app-greeting-border-accent: #14b8a6;
+  --app-greeting-bg: linear-gradient(
+    118deg,
+    rgba(20, 184, 166, 0.18) 0%,
+    rgba(255, 255, 255, 0.92) 44%,
+    rgba(251, 113, 133, 0.12) 100%
+  );
+  --app-greeting-name-gradient: linear-gradient(115deg, #0f766e 0%, #be123c 100%);
+  --app-quote-border-accent: #e11d48;
+  --goal-card-accent: #0d9488;
+  --goal-card-focus-ring: rgba(13, 148, 136, 0.28);
+  --btn-primary-shadow: 0 2px 14px rgba(15, 118, 110, 0.35);
+}
+
+@media (prefers-color-scheme: dark) {
+  html[data-theme='calm'] {
+    --text-h: #f1f5f9;
+    --text: #94a3b8;
+    --text-muted: #7c8ea3;
+    --bg: #0c1222;
+    --bg-gradient-mid: #111a2e;
+    --bg-gradient-end: #0a0f1a;
+    --bg-glow: rgba(59, 130, 246, 0.12);
+    --bg-corner-tint: rgba(59, 130, 246, 0);
+    --ring-border: rgba(71, 85, 105, 0.5);
+    --ring-border-hover: rgba(100, 116, 139, 0.65);
+    --ring-card-bg: rgba(30, 41, 59, 0.72);
+    --ring-track-muted: #1e293b;
+    --ring-label-hover-bg: rgba(96, 165, 250, 0.12);
+    --input-bg: rgba(30, 41, 59, 0.9);
+    --btn-bg: #3b82f6;
+    --btn-bg-hover: #60a5fa;
+    --btn-fg: #0f172a;
+    --focus: #60a5fa;
+    --focus-ring-soft: rgba(59, 130, 246, 0.25);
+    --risk-border: rgba(127, 29, 29, 0.6);
+    --risk-glow: rgba(248, 113, 113, 0.15);
+    --risk-text: #fca5a5;
+    --week-open: #64748b;
+    --week-done: #34d399;
+    --week-today-bg: rgba(59, 130, 246, 0.15);
+    --quote-bg: rgba(30, 41, 59, 0.55);
+    --quote-border: rgba(71, 85, 105, 0.45);
+    --quote-accent: #93c5fd;
+    --quote-bar: linear-gradient(180deg, #60a5fa 0%, #3b82f6 100%);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.04);
+    --shadow-lg: 0 16px 48px -12px rgba(0, 0, 0, 0.45);
+    --mark-ring-outer: #ff6b8a;
+    --mark-ring-mid: #4ade80;
+    --mark-ring-inner: #60a5fa;
+    --app-title-gradient: linear-gradient(115deg, #f8fafc 0%, #94a3b8 100%);
+    --app-greeting-border-accent: #34d399;
+    --app-greeting-bg: linear-gradient(
+      118deg,
+      rgba(16, 185, 129, 0.18) 0%,
+      rgba(30, 41, 59, 0.88) 48%,
+      rgba(59, 130, 246, 0.14) 100%
+    );
+    --app-greeting-name-gradient: linear-gradient(115deg, #5eead4 0%, #93c5fd 100%);
+    --app-quote-border-accent: #60a5fa;
+    --goal-card-accent: #c084fc;
+    --goal-card-focus-ring: rgba(59, 130, 246, 0.22);
+    --btn-primary-shadow: 0 2px 12px rgba(59, 130, 246, 0.25);
+  }
+
+  html[data-theme='aurora'] {
+    --text-h: #faf5ff;
+    --text: #c4b5dc;
+    --text-muted: #9d8bb8;
+    --bg: #0a0416;
+    --bg-gradient-mid: #12082a;
+    --bg-gradient-end: #031f24;
+    --bg-glow: rgba(168, 85, 247, 0.2);
+    --bg-corner-tint: rgba(34, 211, 238, 0.1);
+    --ring-border: rgba(167, 139, 250, 0.28);
+    --ring-border-hover: rgba(192, 132, 252, 0.45);
+    --ring-card-bg: rgba(28, 18, 48, 0.82);
+    --ring-track-muted: #1e1533;
+    --ring-label-hover-bg: rgba(192, 132, 252, 0.12);
+    --input-bg: rgba(30, 21, 52, 0.92);
+    --btn-bg: #a855f7;
+    --btn-bg-hover: #c084fc;
+    --btn-fg: #0f0518;
+    --focus: #f0abfc;
+    --focus-ring-soft: rgba(240, 171, 252, 0.28);
+    --risk-border: rgba(190, 18, 60, 0.45);
+    --risk-glow: rgba(251, 113, 133, 0.12);
+    --risk-text: #fda4af;
+    --week-open: #7c6a9a;
+    --week-done: #34d399;
+    --week-today-bg: rgba(168, 85, 247, 0.18);
+    --quote-bg: rgba(22, 14, 40, 0.72);
+    --quote-border: rgba(124, 58, 237, 0.35);
+    --quote-accent: #e9d5ff;
+    --quote-bar: linear-gradient(180deg, #e879f9 0%, #7c3aed 100%);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
+    --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    --shadow-lg: 0 18px 50px -12px rgba(0, 0, 0, 0.55);
+    --mark-ring-outer: #fb7185;
+    --mark-ring-mid: #a3e635;
+    --mark-ring-inner: #22d3ee;
+    --app-title-gradient: linear-gradient(115deg, #fae8ff 0%, #f0abfc 42%, #5eead4 100%);
+    --app-greeting-border-accent: #f0abfc;
+    --app-greeting-bg: linear-gradient(
+      118deg,
+      rgba(192, 38, 211, 0.22) 0%,
+      rgba(30, 21, 52, 0.9) 48%,
+      rgba(34, 211, 238, 0.12) 100%
+    );
+    --app-greeting-name-gradient: linear-gradient(115deg, #f0abfc 0%, #5eead4 100%);
+    --app-quote-border-accent: #22d3ee;
+    --goal-card-accent: #e879f9;
+    --goal-card-focus-ring: rgba(232, 121, 249, 0.35);
+    --btn-primary-shadow: 0 2px 18px rgba(168, 85, 247, 0.38);
+  }
+
+  html[data-theme='sunrise'] {
+    --text-h: #fff7ed;
+    --text: #fdba74;
+    --text-muted: #c4a574;
+    --bg: #1c0a0f;
+    --bg-gradient-mid: #2a0f18;
+    --bg-gradient-end: #1a1420;
+    --bg-glow: rgba(251, 113, 133, 0.12);
+    --bg-corner-tint: rgba(251, 191, 36, 0.08);
+    --ring-border: rgba(251, 146, 60, 0.22);
+    --ring-border-hover: rgba(253, 186, 116, 0.35);
+    --ring-card-bg: rgba(40, 20, 28, 0.85);
+    --ring-track-muted: #2d151c;
+    --ring-label-hover-bg: rgba(251, 146, 60, 0.1);
+    --input-bg: rgba(50, 24, 32, 0.92);
+    --btn-bg: #fb923c;
+    --btn-bg-hover: #fdba74;
+    --btn-fg: #1c0a0f;
+    --focus: #fda4af;
+    --focus-ring-soft: rgba(253, 164, 175, 0.28);
+    --risk-border: rgba(190, 18, 60, 0.45);
+    --risk-glow: rgba(251, 113, 133, 0.1);
+    --risk-text: #fecdd3;
+    --week-open: #9a6f78;
+    --week-done: #fbbf24;
+    --week-today-bg: rgba(251, 146, 60, 0.15);
+    --quote-bg: rgba(36, 18, 26, 0.78);
+    --quote-border: rgba(251, 113, 133, 0.25);
+    --quote-accent: #fdba74;
+    --quote-bar: linear-gradient(180deg, #fb7185 0%, #ea580c 100%);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.45);
+    --shadow-lg: 0 18px 48px rgba(0, 0, 0, 0.55);
+    --mark-ring-outer: #fb7185;
+    --mark-ring-mid: #fbbf24;
+    --mark-ring-inner: #fdba74;
+    --app-title-gradient: linear-gradient(115deg, #ffe4e6 0%, #fb923c 45%, #fde047 100%);
+    --app-greeting-border-accent: #fb923c;
+    --app-greeting-bg: linear-gradient(
+      118deg,
+      rgba(251, 113, 133, 0.2) 0%,
+      rgba(40, 20, 28, 0.92) 48%,
+      rgba(251, 191, 36, 0.1) 100%
+    );
+    --app-greeting-name-gradient: linear-gradient(115deg, #fda4af 0%, #fdba74 100%);
+    --app-quote-border-accent: #fbbf24;
+    --goal-card-accent: #fb7185;
+    --goal-card-focus-ring: rgba(251, 113, 133, 0.3);
+    --btn-primary-shadow: 0 2px 16px rgba(251, 146, 60, 0.35);
+  }
+
+  html[data-theme='neon'] {
+    --text-h: #ecfccb;
+    --text: #cbd5e1;
+    --text-muted: #94a3b8;
+    --bg: #020617;
+    --bg-gradient-mid: #0f172a;
+    --bg-gradient-end: #042f2e;
+    --bg-glow: rgba(132, 204, 22, 0.12);
+    --bg-corner-tint: rgba(34, 211, 238, 0.08);
+    --ring-border: rgba(51, 65, 85, 0.45);
+    --ring-border-hover: rgba(34, 211, 238, 0.35);
+    --ring-card-bg: rgba(15, 23, 42, 0.78);
+    --ring-track-muted: #1e293b;
+    --ring-label-hover-bg: rgba(132, 204, 22, 0.1);
+    --input-bg: rgba(15, 23, 42, 0.92);
+    --btn-bg: #bef264;
+    --btn-bg-hover: #d9f99d;
+    --btn-fg: #020617;
+    --focus: #22d3ee;
+    --focus-ring-soft: rgba(34, 211, 238, 0.25);
+    --risk-border: rgba(248, 113, 113, 0.25);
+    --risk-glow: rgba(248, 113, 113, 0.08);
+    --risk-text: #fecaca;
+    --week-open: #64748b;
+    --week-done: #bef264;
+    --week-today-bg: rgba(34, 211, 238, 0.1);
+    --quote-bg: rgba(15, 23, 42, 0.65);
+    --quote-border: rgba(34, 211, 238, 0.2);
+    --quote-accent: #67e8f9;
+    --quote-bar: linear-gradient(180deg, #22d3ee 0%, #4ade80 100%);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 18px 50px rgba(0, 0, 0, 0.6);
+    --mark-ring-outer: #bef264;
+    --mark-ring-mid: #22d3ee;
+    --mark-ring-inner: #f472b6;
+    --app-title-gradient: linear-gradient(115deg, #ecfccb 0%, #22d3ee 42%, #a3e635 100%);
+    --app-greeting-border-accent: #a3e635;
+    --app-greeting-bg: linear-gradient(
+      118deg,
+      rgba(132, 204, 22, 0.15) 0%,
+      rgba(15, 23, 42, 0.9) 48%,
+      rgba(34, 211, 238, 0.1) 100%
+    );
+    --app-greeting-name-gradient: linear-gradient(115deg, #bef264 0%, #22d3ee 100%);
+    --app-quote-border-accent: #22d3ee;
+    --goal-card-accent: #67e8f9;
+    --goal-card-focus-ring: rgba(34, 211, 238, 0.3);
+    --btn-primary-shadow: 0 2px 18px rgba(132, 204, 22, 0.25);
+  }
+
+  html[data-theme='volt'] {
+    --text-h: #ecfdf5;
+    --text: #99f6e4;
+    --text-muted: #5eead4;
+    --bg: #042f2e;
+    --bg-gradient-mid: #0f172a;
+    --bg-gradient-end: #1e1b4b;
+    --bg-glow: rgba(45, 212, 191, 0.14);
+    --bg-corner-tint: rgba(244, 63, 94, 0.08);
+    --ring-border: rgba(45, 212, 191, 0.22);
+    --ring-border-hover: rgba(251, 113, 133, 0.35);
+    --ring-card-bg: rgba(15, 40, 38, 0.82);
+    --ring-track-muted: #134e4a;
+    --ring-label-hover-bg: rgba(45, 212, 191, 0.1);
+    --input-bg: rgba(15, 40, 38, 0.92);
+    --btn-bg: #14b8a6;
+    --btn-bg-hover: #2dd4bf;
+    --btn-fg: #042f2e;
+    --focus: #fda4af;
+    --focus-ring-soft: rgba(251, 113, 133, 0.25);
+    --risk-border: rgba(251, 113, 133, 0.25);
+    --risk-glow: rgba(244, 63, 94, 0.1);
+    --risk-text: #fecdd3;
+    --week-open: #5a8f89;
+    --week-done: #2dd4bf;
+    --week-today-bg: rgba(244, 63, 94, 0.12);
+    --quote-bg: rgba(15, 40, 38, 0.72);
+    --quote-border: rgba(45, 212, 191, 0.25);
+    --quote-accent: #99f6e4;
+    --quote-bar: linear-gradient(180deg, #2dd4bf 0%, #fb7185 100%);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
+    --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.45);
+    --shadow-lg: 0 18px 48px rgba(0, 0, 0, 0.55);
+    --mark-ring-outer: #fb7185;
+    --mark-ring-mid: #2dd4bf;
+    --mark-ring-inner: #f472b6;
+    --app-title-gradient: linear-gradient(115deg, #ccfbf1 0%, #5eead4 38%, #fda4af 100%);
+    --app-greeting-border-accent: #2dd4bf;
+    --app-greeting-bg: linear-gradient(
+      118deg,
+      rgba(45, 212, 191, 0.18) 0%,
+      rgba(15, 40, 38, 0.9) 48%,
+      rgba(251, 113, 133, 0.1) 100%
+    );
+    --app-greeting-name-gradient: linear-gradient(115deg, #5eead4 0%, #fda4af 100%);
+    --app-quote-border-accent: #fb7185;
+    --goal-card-accent: #2dd4bf;
+    --goal-card-focus-ring: rgba(45, 212, 191, 0.32);
+    --btn-primary-shadow: 0 2px 16px rgba(20, 184, 166, 0.35);
+  }
+}

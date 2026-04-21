@@ -2,10 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      ;(function () {
+        var k = 'daily-rings-theme'
+        var o = ['aurora', 'calm', 'sunrise', 'neon', 'volt']
+        var v = localStorage.getItem(k)
+        document.documentElement.dataset.theme = o.indexOf(v) >= 0 ? v : 'aurora'
+      })()
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400..800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400..800&family=Plus+Jakarta+Sans:ital,wght@0,400..700;1,500&display=swap"
       rel="stylesheet"
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
