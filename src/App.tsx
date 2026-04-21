@@ -15,7 +15,8 @@ import {
 } from './lib/cloudData'
 import { addDays, localDateString, parseDate } from './lib/dates'
 import { fetchDailyQuote, type DailyQuote } from './lib/dailyQuote'
-import { firstNameFromUser } from './lib/greeting'
+import { firstNameFromUser, possessiveActivityTitle } from './lib/greeting'
+import { fetchOpenMeteoCurrent, type LocalWeatherNow } from './lib/localWeather'
 import {
   GOAL_LINE_META_KEY,
   readGoalLineFromStorage,
@@ -98,6 +99,7 @@ export default function App() {
   const [quoteLoading, setQuoteLoading] = useState(true)
   const [goalLine, setGoalLine] = useState('')
   const [goalSaveStatus, setGoalSaveStatus] = useState<GoalSaveStatus>('idle')
+  const [localWeather, setLocalWeather] = useState<LocalWeatherNow | null>(null)
 
   const useCloud = Boolean(supabase && session)
   const useLocal = !supabase
@@ -179,6 +181,40 @@ export default function App() {
   }, [])
 
   useEffect(() => {
+    if (supabase && (!authReady || !session)) {
+      setLocalWeather(null)
+      return
+    }
+    if (!navigator.geolocation) return
+
+    let cancelled = false
+    const ac = new AbortController()
+
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        if (cancelled) return
+        const { latitude, longitude } = pos.coords
+        void fetchOpenMeteoCurrent(latitude, longitude, ac.signal)
+          .then((w) => {
+            if (!cancelled) setLocalWeather(w)
+          })
+          .catch(() => {
+            if (!cancelled) setLocalWeather(null)
+          })
+      },
+      () => {
+        if (!cancelled) setLocalWeather(null)
+      },
+      { enableHighAccuracy: false, timeout: 14_000, maximumAge: 600_000 },
+    )
+
+    return () => {
+      cancelled = true
+      ac.abort()
+    }
+  }, [supabase, authReady, session])
+
+  useEffect(() => {
     if (supabase && session?.user) {
       setGoalLine(readGoalLineFromUser(session.user))
       setGoalSaveStatus('idle')
@@ -201,6 +237,11 @@ export default function App() {
   const greetingName = useMemo(
     () => (session?.user ? firstNameFromUser(session.user) : ''),
     [session?.user],
+  )
+
+  const appTitleText = useMemo(
+    () => (useCloud && session?.user ? possessiveActivityTitle(session.user) : 'Activity Tracker'),
+    [useCloud, session?.user],
   )
 
   const persistGoalLine = useCallback(async () => {
@@ -360,7 +401,7 @@ export default function App() {
           <div className="app-header-main">
             <div className="app-header-title-row">
               <div className="app-brand-text">
-                <h1 className="app-title">Activity Tracker</h1>
+                <h1 className="app-title">{appTitleText}</h1>
                 <p className="app-sub">
                   Today ·{' '}
                   {parseDate(today).toLocaleDateString(undefined, {
@@ -368,6 +409,18 @@ export default function App() {
                     month: 'short',
                     day: 'numeric',
                   })}
+                  {localWeather ? (
+                    <>
+                      {' '}
+                      ·{' '}
+                      <span
+                        className="app-sub-weather"
+                        title="From this device’s location (Open-Meteo)"
+                      >
+                        {localWeather.tempC} °C ({localWeather.conditionLabel})
+                      </span>
+                    </>
+                  ) : null}
                 </p>
               </div>
               {useCloud && session?.user && (

@@ -295,6 +295,11 @@
   font-weight: 500;
   color: var(--text-muted);
   letter-spacing: -0.01em;
+  line-height: 1.45;
+}
+
+.app-sub-weather {
+  font-weight: 600;
 }
 
 .app-hint {

@@ -34,3 +34,11 @@ export function firstNameFromUser(user: User): string {
 
   return 'there'
 }
+
+/** Signed-in header title, e.g. "Abhishek's Activity Tracker". Falls back if no usable name. */
+export function possessiveActivityTitle(user: User | undefined): string {
+  if (!user) return 'Activity Tracker'
+  const first = firstNameFromUser(user)
+  if (!first || first === 'there') return 'Activity Tracker'
+  return `${first}'s Activity Tracker`
+}
