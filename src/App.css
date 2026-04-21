@@ -431,6 +431,17 @@
   gap: 1.5rem;
 }
 
+.app-body-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 0;
+}
+
+.app-body-main .app-quote {
+  margin-top: 0;
+}
+
 @media (min-width: 960px) {
   .app-body {
     display: grid;

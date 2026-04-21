@@ -407,7 +407,6 @@ export default function App() {
             <p className="app-greeting-sub">How are you doing today?</p>
           </section>
         )}
-        <MotivationQuote quote={dailyQuote} loading={quoteLoading} />
         {((useCloud && session) || useLocal) && (
           <GoalLineCard
             value={goalLine}
@@ -438,26 +437,30 @@ export default function App() {
       )}
 
       <div className="app-body">
-        <section className="rings-row" aria-label="Today’s habits">
-          {sortedHabits.map((h, i) => {
-            const closed = isCompleted(state, h.id, today)
-            const risk = doubleMissRisk(state, h.id, today)
-            const accent = ACCENTS[i % ACCENTS.length]
-            const track = 'var(--ring-track-muted)'
-            return (
-              <Ring
-                key={h.id}
-                label={h.name}
-                closed={closed}
-                atRisk={risk && !closed}
-                accent={accent}
-                track={track}
-                onToggle={() => requestToggle(h.id, h.name)}
-                onRename={(name) => void commitRename(h.id, name)}
-              />
-            )
-          })}
-        </section>
+        <div className="app-body-main">
+          <section className="rings-row" aria-label="Today’s habits">
+            {sortedHabits.map((h, i) => {
+              const closed = isCompleted(state, h.id, today)
+              const risk = doubleMissRisk(state, h.id, today)
+              const accent = ACCENTS[i % ACCENTS.length]
+              const track = 'var(--ring-track-muted)'
+              return (
+                <Ring
+                  key={h.id}
+                  label={h.name}
+                  closed={closed}
+                  atRisk={risk && !closed}
+                  accent={accent}
+                  track={track}
+                  onToggle={() => requestToggle(h.id, h.name)}
+                  onRename={(name) => void commitRename(h.id, name)}
+                />
+              )
+            })}
+          </section>
+
+          <MotivationQuote quote={dailyQuote} loading={quoteLoading} />
+        </div>
 
         <div className="app-body-side">
           <section className="week-panel" aria-label="Last seven days">
