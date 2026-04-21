@@ -348,17 +348,6 @@ export default function App() {
         </header>
         <MotivationQuote quote={dailyQuote} loading={quoteLoading} />
         <AuthPanel supabase={supabase} />
-        <p className="app-footnote">
-          <Link to="/install" className="app-footnote-link">
-            How to Install on iPhone or Android
-          </Link>
-        </p>
-        <p className="app-footnote app-footnote--tight">
-          Configure <code>VITE_SUPABASE_URL</code> and{' '}
-          <code>VITE_SUPABASE_ANON_KEY</code> on your host (e.g. Vercel) and allow
-          this URL in Supabase Auth redirect settings.
-        </p>
-        <NeverMissTwiceNote centered />
       </div>
     )
   }
