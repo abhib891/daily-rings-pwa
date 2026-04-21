@@ -501,34 +501,42 @@ export default function App() {
 
       <div className="app-body">
         <div className="app-body-main">
-          <section
-            className={
-              sortedHabits.length > 0 ? 'rings-row rings-row--with-master' : 'rings-row'
-            }
-            aria-label="Today’s habits"
-          >
+          <div className="rings-block">
+            <section
+              className={
+                sortedHabits.length > 0 ? 'rings-row rings-row--with-master' : 'rings-row'
+              }
+              aria-label="Today’s habits"
+            >
+              {sortedHabits.length > 0 && (
+                <MasterStatusRing layers={masterRingLayers} anyAtRisk={masterRingAnyAtRisk} />
+              )}
+              {sortedHabits.map((h, i) => {
+                const closed = isCompleted(state, h.id, today)
+                const risk = doubleMissRisk(state, h.id, today)
+                const accent = ringAccents[i % ringAccents.length]!
+                const track = 'var(--ring-track-muted)'
+                return (
+                  <Ring
+                    key={h.id}
+                    label={h.name}
+                    closed={closed}
+                    atRisk={risk && !closed}
+                    accent={accent}
+                    track={track}
+                    onToggle={() => requestToggle(h.id, h.name)}
+                    onRename={(name) => void commitRename(h.id, name)}
+                  />
+                )
+              })}
+            </section>
             {sortedHabits.length > 0 && (
-              <MasterStatusRing layers={masterRingLayers} anyAtRisk={masterRingAnyAtRisk} />
+              <p className="rings-rename-note">
+                <span className="rings-rename-note__lead">Note:</span> You can rename the activity
+                rings as you need.
+              </p>
             )}
-            {sortedHabits.map((h, i) => {
-              const closed = isCompleted(state, h.id, today)
-              const risk = doubleMissRisk(state, h.id, today)
-              const accent = ringAccents[i % ringAccents.length]!
-              const track = 'var(--ring-track-muted)'
-              return (
-                <Ring
-                  key={h.id}
-                  label={h.name}
-                  closed={closed}
-                  atRisk={risk && !closed}
-                  accent={accent}
-                  track={track}
-                  onToggle={() => requestToggle(h.id, h.name)}
-                  onRename={(name) => void commitRename(h.id, name)}
-                />
-              )
-            })}
-          </section>
+          </div>
 
           <MotivationQuote quote={dailyQuote} loading={quoteLoading} />
         </div>
@@ -568,7 +576,6 @@ export default function App() {
           </section>
 
           <footer className="app-bottom">
-            <p className="app-bottom-tip">You can rename the activity rings as you need.</p>
             <NeverMissTwiceNote />
             <p className="app-bottom-note">
               <Link to="/install" className="app-bottom-note-link">

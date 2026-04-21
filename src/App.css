@@ -449,12 +449,24 @@
   }
 }
 
-.app-bottom-tip {
-  margin: 0 0 0.65rem;
+.rings-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.rings-rename-note {
+  margin: 0;
   font-size: 0.78rem;
   font-weight: 500;
   color: var(--text-muted);
   line-height: 1.5;
+}
+
+.rings-rename-note__lead {
+  font-weight: 700;
+  color: var(--text-h);
 }
 
 .app-bottom-reminder {
