@@ -242,6 +242,21 @@
   border: 1px solid var(--ring-border);
 }
 
+.app-footnote-link {
+  font-weight: 600;
+  color: var(--focus);
+  text-decoration: none;
+}
+
+.app-footnote-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.app-footnote--tight {
+  margin-top: 0.65rem;
+}
+
 .app-footnote + .app-bottom-reminder {
   margin-top: 1.25rem;
 }
@@ -409,6 +424,17 @@
 }
 
 .app-bottom-note a:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.app-bottom-note-link {
+  color: var(--focus);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.app-bottom-note-link:hover {
   text-decoration: underline;
   text-underline-offset: 2px;
 }

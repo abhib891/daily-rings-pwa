@@ -1,5 +1,7 @@
 # Use Daily Rings on iPhone and laptop
 
+In the deployed app you can also open the **in-browser install guide** at **`/install`** (e.g. `https://your-app.vercel.app/install`).
+
 Safari on iPhone only treats your app as a real **installable PWA** on a proper **`https://` URL** (not `http://` on your LAN IP, and not someone else’s hostname). Your laptop can use the **same URL** in the browser.
 
 ## 1. Deploy once (get HTTPS)

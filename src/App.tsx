@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
 import type { Session } from '@supabase/supabase-js'
 import { AppMark } from './components/AppMark'
 import { AuthPanel } from './components/AuthPanel'
@@ -287,6 +288,11 @@ export default function App() {
         <MotivationQuote quote={dailyQuote} loading={quoteLoading} />
         <AuthPanel supabase={supabase} />
         <p className="app-footnote">
+          <Link to="/install" className="app-footnote-link">
+            Install on iPhone or Android
+          </Link>
+        </p>
+        <p className="app-footnote app-footnote--tight">
           Configure <code>VITE_SUPABASE_URL</code> and{' '}
           <code>VITE_SUPABASE_ANON_KEY</code> on your host (e.g. Vercel) and allow
           this URL in Supabase Auth redirect settings.
@@ -407,6 +413,10 @@ export default function App() {
           <footer className="app-bottom">
             <NeverMissTwiceNote />
             <p className="app-bottom-note">
+              <Link to="/install" className="app-bottom-note-link">
+                Install on iPhone or Android
+              </Link>
+              <span aria-hidden="true"> · </span>
               Daily quotes load from{' '}
               <a href="https://github.com/lukePeavey/quotable" target="_blank" rel="noreferrer">
                 Quotable

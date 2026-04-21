@@ -1,0 +1,116 @@
+.install-guide {
+  padding-bottom: 2.5rem;
+}
+
+.install-guide-header {
+  margin-bottom: 0.5rem;
+}
+
+.install-guide-nav {
+  margin: 0 0 1.25rem;
+}
+
+.install-guide-back {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--focus);
+  text-decoration: none;
+}
+
+.install-guide-back:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.install-guide-back--footer {
+  font-size: 0.9rem;
+}
+
+.install-guide-article {
+  border: 1px solid var(--ring-border);
+  border-radius: var(--radius-lg, 20px);
+  background: var(--ring-card-bg);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 1.25rem 1.2rem 1.35rem;
+  max-width: 36rem;
+}
+
+.install-guide-lead {
+  margin: 0 0 1.35rem;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.install-guide-code {
+  font-size: 0.82em;
+  font-weight: 500;
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+  background: var(--input-bg);
+  border: 1px solid var(--ring-border);
+}
+
+.install-guide-section {
+  margin-top: 1.35rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--ring-border);
+}
+
+.install-guide-section:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.install-guide-h2 {
+  margin: 0 0 0.65rem;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-h);
+}
+
+.install-guide-steps {
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.install-guide-steps li {
+  margin-bottom: 0.45rem;
+}
+
+.install-guide-steps li:last-child {
+  margin-bottom: 0;
+}
+
+.install-guide-tip {
+  margin: 0.85rem 0 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.install-guide-p {
+  margin: 0 0 0.65rem;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.install-guide-p:last-child {
+  margin-bottom: 0;
+}
+
+.install-guide-footer {
+  margin-top: 1.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--ring-border);
+}

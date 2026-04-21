@@ -11,6 +11,8 @@
 
 **Production URL (Vercel):** [https://daily-rings-pwa-9g3x.vercel.app](https://daily-rings-pwa-9g3x.vercel.app)
 
+**Install on phone:** open **`/install`** on the same host (e.g. `https://daily-rings-pwa-9g3x.vercel.app/install`) for step-by-step iPhone (Safari) and Android (Chrome) instructions.
+
 > If your Vercel project name or domain changes, update this line. The canonical URL is always under **Vercel → your project → Domains** (or the latest **Production** deployment).
 
 ---
@@ -37,7 +39,7 @@
 |-----|--------|
 | [PREREQUISITES.md](./PREREQUISITES.md) | Machine + Supabase + Git prerequisites |
 | [DEPLOY-HOSTS.md](./DEPLOY-HOSTS.md) | Deploy to HTTPS on **Vercel** |
-| [DEPLOY-IPHONE.md](./DEPLOY-IPHONE.md) | Add to Home Screen, storage notes |
+| [DEPLOY-IPHONE.md](./DEPLOY-IPHONE.md) | Add to Home Screen, storage notes (see also in-app **`/install`**) |
 | [SUPABASE-SYNC.md](./SUPABASE-SYNC.md) | Auth URLs, env vars, SQL order, dedupe |
 | [LOCAL.md](./LOCAL.md) | Run without cloud |
 | (this file, [Cleanup and teardown](#cleanup-and-teardown)) | Delete Vercel / Supabase / OAuth / PWA when you are done |
