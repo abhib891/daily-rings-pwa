@@ -568,6 +568,7 @@ export default function App() {
           </section>
 
           <footer className="app-bottom">
+            <p className="app-bottom-tip">You can rename the activity rings as you need.</p>
             <NeverMissTwiceNote />
             <p className="app-bottom-note">
               <Link to="/install" className="app-bottom-note-link">
