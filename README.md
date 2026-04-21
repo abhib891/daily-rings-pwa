@@ -11,7 +11,7 @@
 
 **Production URL (Vercel):** [https://daily-rings-pwa-9g3x.vercel.app](https://daily-rings-pwa-9g3x.vercel.app)
 
-**Install on phone:** open **`/install`** on the same host (e.g. `https://daily-rings-pwa-9g3x.vercel.app/install`) for step-by-step iPhone (Safari) and Android (Chrome) instructions.
+**How to install on phone:** open **`/install`** on the same host (e.g. `https://daily-rings-pwa-9g3x.vercel.app/install`) for step-by-step iPhone (Safari) and Android (Chrome) instructions.
 
 > If your Vercel project name or domain changes, update this line. The canonical URL is always under **Vercel → your project → Domains** (or the latest **Production** deployment).
 

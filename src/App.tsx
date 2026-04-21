@@ -350,7 +350,7 @@ export default function App() {
         <AuthPanel supabase={supabase} />
         <p className="app-footnote">
           <Link to="/install" className="app-footnote-link">
-            Install on iPhone or Android
+            How to Install on iPhone or Android
           </Link>
         </p>
         <p className="app-footnote app-footnote--tight">
@@ -497,14 +497,8 @@ export default function App() {
             <NeverMissTwiceNote />
             <p className="app-bottom-note">
               <Link to="/install" className="app-bottom-note-link">
-                Install on iPhone or Android
+                How to Install on iPhone or Android
               </Link>
-              <span aria-hidden="true"> · </span>
-              Daily quotes load from{' '}
-              <a href="https://github.com/lukePeavey/quotable" target="_blank" rel="noreferrer">
-                Quotable
-              </a>{' '}
-              when you are online; otherwise a built-in list is used.
             </p>
           </footer>
         </div>
