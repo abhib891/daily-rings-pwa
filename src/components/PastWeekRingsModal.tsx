@@ -59,9 +59,6 @@ export function PastWeekRingsModal({ open, onClose, days }: PastWeekRingsModalPr
             Close
           </button>
         </div>
-        <p className="past-week-modal__lead">
-          Same ring layout as today — one band per habit, filled when that day was completed.
-        </p>
         <ul className="past-week-modal__grid">
           {days.map((d) => (
             <li
