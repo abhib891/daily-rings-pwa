@@ -1,63 +1,23 @@
 .master-ring-card {
-  cursor: default;
+  cursor: pointer;
+  text-align: center;
+  font: inherit;
+  color: inherit;
+  appearance: none;
 }
 
 .ring-card.master-ring-card:hover {
-  transform: none;
+  transform: translateY(-1px);
 }
 
-.master-ring-stack {
-  position: relative;
-  width: var(--master-ring-stack-size, 92px);
-  height: var(--master-ring-stack-size, 92px);
-  margin: 0 auto;
-  flex-shrink: 0;
-}
-
-.master-ring-layer-wrap {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  translate: -50% -50%;
-  pointer-events: none;
-}
-
-.master-ring-donut {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: conic-gradient(
-    from -90deg,
-    var(--ring-accent) 0deg,
-    var(--ring-accent) calc(var(--ring-p, 0) * 360deg),
-    var(--ring-track) 0
-  );
-  box-shadow:
-    inset 0 1px 2px rgba(255, 255, 255, 0.35),
-    0 2px 8px rgba(15, 23, 42, 0.08);
-  -webkit-mask: radial-gradient(
-    farthest-side,
-    transparent calc(100% - 11px),
-    #000 calc(100% - 11px)
-  );
-  mask: radial-gradient(
-    farthest-side,
-    transparent calc(100% - 11px),
-    #000 calc(100% - 11px)
-  );
-}
-
-@media (prefers-color-scheme: dark) {
-  .master-ring-donut {
-    box-shadow:
-      inset 0 1px 2px rgba(255, 255, 255, 0.08),
-      0 0 0 1px rgba(255, 255, 255, 0.1),
-      0 2px 14px rgba(0, 0, 0, 0.45);
-  }
+.master-ring-card:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
 }
 
 .master-ring-title {
-  margin: 0.35rem 0 0;
+  display: block;
+  margin: 0.35rem auto 0;
   padding: 0 0.2rem;
   font-size: 0.78rem;
   font-weight: 700;
@@ -66,4 +26,14 @@
   text-align: center;
   color: var(--text-h);
   max-width: 7.5rem;
+}
+
+.master-ring-hint {
+  display: block;
+  margin: 0.2rem 0 0;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  text-transform: uppercase;
 }

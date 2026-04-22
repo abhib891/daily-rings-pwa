@@ -1,62 +1,39 @@
-import { type CSSProperties } from 'react'
+import { ConcentricRingStack, type ConcentricLayer } from './ConcentricRingStack'
 import './MasterStatusRing.css'
 
-export type MasterRingLayer = {
-  id: string
-  closed: boolean
-  accent: string
-}
+export type MasterRingLayer = ConcentricLayer
 
 type MasterStatusRingProps = {
   layers: MasterRingLayer[]
   /** True if any underlying habit is in “never miss twice” risk today. */
   anyAtRisk: boolean
+  onOpenPastWeek: () => void
+  pastWeekModalOpen: boolean
 }
 
-function layerSizePercent(n: number, index: number): number {
-  if (n <= 1) return 100
-  const innerPct = 52
-  return 100 - (index * (100 - innerPct)) / (n - 1)
-}
-
-export function MasterStatusRing({ layers, anyAtRisk }: MasterStatusRingProps) {
+export function MasterStatusRing({
+  layers,
+  anyAtRisk,
+  onOpenPastWeek,
+  pastWeekModalOpen,
+}: MasterStatusRingProps) {
   const n = layers.length
   if (n === 0) return null
 
   const doneCount = layers.filter((l) => l.closed).length
-  const track = 'var(--ring-donut-track, var(--ring-track-muted))'
 
   return (
-    <div
+    <button
+      type="button"
       className={`ring-card master-ring-card${anyAtRisk ? ' ring-card--risk' : ''}`}
-      role="group"
-      aria-label={`Today’s status: ${doneCount} of ${n} complete for today.`}
+      onClick={onOpenPastWeek}
+      aria-haspopup="dialog"
+      aria-expanded={pastWeekModalOpen}
+      aria-label={`Today’s status: ${doneCount} of ${n} complete for today. Opens past week as rings.`}
     >
-      <div className="master-ring-stack" aria-hidden="true">
-        {layers.map((layer, i) => {
-          const pct = layer.closed ? 1 : 0
-          const sizePct = layerSizePercent(n, i)
-          return (
-            <div
-              key={layer.id}
-              className="master-ring-layer-wrap"
-              style={{ width: `${sizePct}%`, height: `${sizePct}%` }}
-            >
-              <div
-                className="master-ring-donut"
-                style={
-                  {
-                    '--ring-accent': layer.accent,
-                    '--ring-track': track,
-                    '--ring-p': String(pct),
-                  } as CSSProperties
-                }
-              />
-            </div>
-          )
-        })}
-      </div>
-      <p className="master-ring-title">Today&apos;s status</p>
-    </div>
+      <ConcentricRingStack layers={layers} size="master" />
+      <span className="master-ring-title">Today&apos;s status</span>
+      <span className="master-ring-hint">Tap for past week</span>
+    </button>
   )
 }

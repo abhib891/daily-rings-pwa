@@ -5,6 +5,7 @@ import { AppMark } from './components/AppMark'
 import { AuthPanel } from './components/AuthPanel'
 import { GoalLineCard, type GoalSaveStatus } from './components/GoalLineCard'
 import { MasterStatusRing } from './components/MasterStatusRing'
+import { PastWeekRingsModal } from './components/PastWeekRingsModal'
 import { Ring } from './components/Ring'
 import {
   dedupeHabits,
@@ -103,6 +104,7 @@ export default function App() {
   const [goalLine, setGoalLine] = useState('')
   const [goalSaveStatus, setGoalSaveStatus] = useState<GoalSaveStatus>('idle')
   const [localWeather, setLocalWeather] = useState<LocalWeatherNow | null>(null)
+  const [pastWeekRingsOpen, setPastWeekRingsOpen] = useState(false)
 
   const useCloud = Boolean(supabase && session)
   const useLocal = !supabase
@@ -253,6 +255,21 @@ export default function App() {
         (h) => doubleMissRisk(state, h.id, today) && !isCompleted(state, h.id, today),
       ),
     [sortedHabits, state, today],
+  )
+
+  const pastWeekRingDays = useMemo(
+    () =>
+      days.map((d) => ({
+        iso: d,
+        dow: weekdayShort(d),
+        isToday: d === today,
+        layers: sortedHabits.map((h, i) => ({
+          id: h.id,
+          closed: isCompleted(state, h.id, d),
+          accent: ringAccents[i % ringAccents.length]!,
+        })),
+      })),
+    [days, today, sortedHabits, state, ringAccents],
   )
 
   const greetingName = useMemo(
@@ -509,7 +526,12 @@ export default function App() {
               aria-label="Today’s habits"
             >
               {sortedHabits.length > 0 && (
-                <MasterStatusRing layers={masterRingLayers} anyAtRisk={masterRingAnyAtRisk} />
+                <MasterStatusRing
+                  layers={masterRingLayers}
+                  anyAtRisk={masterRingAnyAtRisk}
+                  onOpenPastWeek={() => setPastWeekRingsOpen(true)}
+                  pastWeekModalOpen={pastWeekRingsOpen}
+                />
               )}
               {sortedHabits.map((h, i) => {
                 const closed = isCompleted(state, h.id, today)
@@ -585,6 +607,12 @@ export default function App() {
           </footer>
         </div>
       </div>
+
+      <PastWeekRingsModal
+        open={pastWeekRingsOpen}
+        onClose={() => setPastWeekRingsOpen(false)}
+        days={pastWeekRingDays}
+      />
     </div>
   )
 }
