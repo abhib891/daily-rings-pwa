@@ -265,8 +265,7 @@ html[data-theme='volt'] {
   --btn-primary-shadow: 0 2px 14px rgba(15, 118, 110, 0.35);
 }
 
-@media (prefers-color-scheme: dark) {
-  html[data-theme='calm'] {
+html.color-scheme-dark[data-theme='calm'] {
     --text-h: #f1f5f9;
     --text: #94a3b8;
     --text-muted: #7c8ea3;
@@ -318,7 +317,7 @@ html[data-theme='volt'] {
     --btn-primary-shadow: 0 2px 12px rgba(59, 130, 246, 0.25);
   }
 
-  html[data-theme='aurora'] {
+html.color-scheme-dark[data-theme='aurora'] {
     --text-h: #faf5ff;
     --text: #c4b5dc;
     --text-muted: #9d8bb8;
@@ -370,7 +369,7 @@ html[data-theme='volt'] {
     --btn-primary-shadow: 0 2px 18px rgba(168, 85, 247, 0.38);
   }
 
-  html[data-theme='sunrise'] {
+html.color-scheme-dark[data-theme='sunrise'] {
     --text-h: #fff7ed;
     --text: #fdba74;
     --text-muted: #c4a574;
@@ -422,7 +421,7 @@ html[data-theme='volt'] {
     --btn-primary-shadow: 0 2px 16px rgba(251, 146, 60, 0.35);
   }
 
-  html[data-theme='neon'] {
+html.color-scheme-dark[data-theme='neon'] {
     --text-h: #ecfccb;
     --text: #cbd5e1;
     --text-muted: #94a3b8;
@@ -474,7 +473,7 @@ html[data-theme='volt'] {
     --btn-primary-shadow: 0 2px 18px rgba(132, 204, 22, 0.25);
   }
 
-  html[data-theme='volt'] {
+html.color-scheme-dark[data-theme='volt'] {
     --text-h: #ecfdf5;
     --text: #99f6e4;
     --text-muted: #5eead4;
@@ -525,4 +524,3 @@ html[data-theme='volt'] {
     --goal-card-focus-ring: rgba(45, 212, 191, 0.32);
     --btn-primary-shadow: 0 2px 16px rgba(20, 184, 166, 0.35);
   }
-}

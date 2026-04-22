@@ -118,10 +118,8 @@
   stroke: var(--mark-ring-inner, #0a84ff);
 }
 
-@media (prefers-color-scheme: dark) {
-  .app-mark {
-    filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.4));
-  }
+html.color-scheme-dark .app-mark {
+  filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.4));
 }
 
 .app-session {
@@ -193,11 +191,9 @@
   box-shadow: var(--shadow-sm);
 }
 
-@media (prefers-color-scheme: dark) {
-  .app-error {
-    background: rgba(127, 29, 29, 0.25);
-    border-color: rgba(248, 113, 113, 0.25);
-  }
+html.color-scheme-dark .app-error {
+  background: rgba(127, 29, 29, 0.25);
+  border-color: rgba(248, 113, 113, 0.25);
 }
 
 .link-btn {

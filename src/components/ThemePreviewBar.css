@@ -5,14 +5,24 @@
   bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
   display: flex;
   align-items: center;
-  gap: 0.45rem;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.55rem;
   padding: 0.4rem 0.55rem 0.4rem 0.65rem;
-  border-radius: 999px;
+  max-width: min(calc(100vw - 1.5rem), 22rem);
+  border-radius: 1rem;
   border: 1px solid var(--ring-border);
   background: var(--ring-card-bg);
   box-shadow: var(--shadow-md);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+}
+
+.theme-preview-bar__group {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .theme-preview-bar__label {
@@ -34,7 +44,9 @@
   border: 1px solid var(--ring-border);
   background: var(--input-bg);
   cursor: pointer;
-  max-width: min(11.5rem, 52vw);
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: min(11.5rem, 42vw);
   appearance: none;
   background-image: linear-gradient(45deg, transparent 50%, var(--text-muted) 50%),
     linear-gradient(135deg, var(--text-muted) 50%, transparent 50%);
@@ -45,6 +57,10 @@
     0.35em 0.35em,
     0.35em 0.35em;
   background-repeat: no-repeat;
+}
+
+.theme-preview-bar__select--narrow {
+  max-width: min(7.5rem, 36vw);
 }
 
 .theme-preview-bar__select:focus-visible {

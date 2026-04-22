@@ -2,12 +2,31 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="theme-color" id="app-theme-color" content="#f4e8ff" />
     <script>
       ;(function () {
-        var k = 'daily-rings-theme'
+        var root = document.documentElement
+        var kTheme = 'daily-rings-theme'
         var o = ['aurora', 'calm', 'sunrise', 'neon', 'volt']
-        var v = localStorage.getItem(k)
-        document.documentElement.dataset.theme = o.indexOf(v) >= 0 ? v : 'aurora'
+        var v = localStorage.getItem(kTheme)
+        root.dataset.theme = o.indexOf(v) >= 0 ? v : 'aurora'
+
+        var kScheme = 'daily-rings-color-scheme'
+        var s = localStorage.getItem(kScheme)
+        var scheme = s === 'light' || s === 'dark' || s === 'system' ? s : 'system'
+        var dark =
+          scheme === 'dark'
+            ? true
+            : scheme === 'light'
+              ? false
+              : window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        root.dataset.colorScheme = scheme
+        root.style.colorScheme = dark ? 'dark' : 'light'
+        if (dark) root.classList.add('color-scheme-dark')
+        else root.classList.remove('color-scheme-dark')
+
+        var meta = document.getElementById('app-theme-color')
+        if (meta) meta.setAttribute('content', dark ? '#0a0416' : '#f4e8ff')
       })()
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,8 +38,6 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#f4e8ff" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0a0416" media="(prefers-color-scheme: dark)" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <title>Activity Tracker</title>

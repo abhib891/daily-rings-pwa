@@ -104,15 +104,13 @@
   border-color: var(--ring-border-hover);
 }
 
-@media (prefers-color-scheme: dark) {
-  .auth-btn-google {
-    background: #1e293b;
-    color: #f1f5f9;
-  }
+html.color-scheme-dark .auth-btn-google {
+  background: #1e293b;
+  color: #f1f5f9;
+}
 
-  .auth-btn-google:not(:disabled):hover {
-    filter: brightness(1.08);
-  }
+html.color-scheme-dark .auth-btn-google:not(:disabled):hover {
+  filter: brightness(1.08);
 }
 
 .auth-btn-primary {
