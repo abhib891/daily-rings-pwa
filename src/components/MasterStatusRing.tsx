@@ -24,7 +24,7 @@ export function MasterStatusRing({ layers, anyAtRisk }: MasterStatusRingProps) {
   if (n === 0) return null
 
   const doneCount = layers.filter((l) => l.closed).length
-  const track = 'var(--ring-track-muted)'
+  const track = 'var(--ring-donut-track, var(--ring-track-muted))'
 
   return (
     <div

@@ -14,6 +14,7 @@
   box-shadow: var(--shadow-md, 0 4px 6px rgba(0, 0, 0, 0.05));
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  isolation: isolate;
   transition:
     border-color 0.2s ease,
     box-shadow 0.2s ease,
@@ -140,8 +141,9 @@
 @media (prefers-color-scheme: dark) {
   .ring-donut {
     box-shadow:
-      inset 0 1px 2px rgba(255, 255, 255, 0.06),
-      0 2px 12px rgba(0, 0, 0, 0.35);
+      inset 0 1px 2px rgba(255, 255, 255, 0.08),
+      0 0 0 1px rgba(255, 255, 255, 0.1),
+      0 2px 14px rgba(0, 0, 0, 0.45);
   }
 }
 

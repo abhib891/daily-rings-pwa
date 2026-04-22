@@ -515,7 +515,7 @@ export default function App() {
                 const closed = isCompleted(state, h.id, today)
                 const risk = doubleMissRisk(state, h.id, today)
                 const accent = ringAccents[i % ringAccents.length]!
-                const track = 'var(--ring-track-muted)'
+                const track = 'var(--ring-donut-track, var(--ring-track-muted))'
                 return (
                   <Ring
                     key={h.id}
