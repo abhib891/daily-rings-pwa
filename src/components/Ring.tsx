@@ -107,13 +107,9 @@ export function Ring({
       )}
 
       {atRisk && (
-        <div
-          className="ring-risk-block"
-          title="Missed yesterday — tap the ring to mark today complete"
-        >
-          <span className="ring-risk-block__title">Missed yesterday</span>
-          <span className="ring-risk-block__hint">Tap the ring to log today.</span>
-        </div>
+        <span className="ring-risk-label" title="Tap the ring to mark today complete">
+          Missed yesterday
+        </span>
       )}
     </div>
   )

@@ -145,41 +145,23 @@ html.color-scheme-dark .ring-donut {
     0 2px 14px rgba(0, 0, 0, 0.45);
 }
 
-.ring-risk-block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.2rem;
+.ring-risk-label {
+  display: block;
   max-width: 9.5rem;
   padding: 0 0.15rem;
-}
-
-.ring-risk-block__title {
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--risk-text);
   line-height: 1.2;
-}
-
-.ring-risk-block__hint {
-  font-size: 0.68rem;
-  font-weight: 600;
-  line-height: 1.35;
-  color: var(--text-muted);
+  text-align: center;
 }
 
 @media (min-width: 960px) {
-  .ring-risk-block__title {
+  .ring-risk-label {
     font-size: 0.78rem;
   }
 
-  .ring-risk-block__hint {
-    font-size: 0.72rem;
-  }
-}
-
-@media (min-width: 960px) {
   .ring-donut {
     width: 100px;
     height: 100px;
