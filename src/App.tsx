@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import type { Session } from '@supabase/supabase-js'
 import { AppMark } from './components/AppMark'
@@ -52,6 +52,44 @@ function weekdayShort(dateStr: string): string {
   return parseDate(dateStr).toLocaleDateString(undefined, { weekday: 'narrow' })
 }
 
+function StrongNameList({ names }: { names: string[] }) {
+  if (names.length === 0) return null
+  if (names.length === 1) return <strong>{names[0]!}</strong>
+  if (names.length === 2) {
+    return (
+      <>
+        <strong>{names[0]!}</strong> and <strong>{names[1]!}</strong>
+      </>
+    )
+  }
+  return (
+    <>
+      {names.slice(0, -1).map((n, i) => (
+        <Fragment key={n}>
+          {i > 0 ? ', ' : null}
+          <strong>{n}</strong>
+        </Fragment>
+      ))}
+      , and <strong>{names[names.length - 1]!}</strong>
+    </>
+  )
+}
+
+function NeverMissTwiceBanner({ habitNames }: { habitNames: string[] }) {
+  if (habitNames.length === 0) return null
+  const were = habitNames.length === 1 ? 'was' : 'were'
+  const ringWord = habitNames.length === 1 ? 'ring' : 'rings'
+  return (
+    <div className="app-nudge-banner" role="status" aria-live="polite">
+      <p className="app-nudge-banner__label">Never miss twice</p>
+      <p className="app-nudge-banner__text">
+        <StrongNameList names={habitNames} /> {were} not completed yesterday. Tap the highlighted{' '}
+        {ringWord} below to log today. Skipping again would mean two missed days in a row.
+      </p>
+    </div>
+  )
+}
+
 function MotivationQuote({
   quote,
   loading,
@@ -80,9 +118,9 @@ function NeverMissTwiceNote({ centered = false }: { centered?: boolean }) {
     >
       <strong>Never Miss Twice Nudge:</strong>{' '}
       <em>
-        Once you have a little history, if you missed a habit yesterday the app highlights that ring as
-        an in-app reminder so you are less likely to miss two days in a row. (No email or push
-        notifications.)
+        Once you have a little history, if you missed a habit yesterday the app shows a banner above the
+        rings and highlights that ring so you are less likely to miss two days in a row. (No email or
+        push notifications.)
       </em>
     </p>
   )
@@ -254,6 +292,14 @@ export default function App() {
       sortedHabits.some(
         (h) => doubleMissRisk(state, h.id, today) && !isCompleted(state, h.id, today),
       ),
+    [sortedHabits, state, today],
+  )
+
+  const neverMissTwiceHabitNames = useMemo(
+    () =>
+      sortedHabits
+        .filter((h) => doubleMissRisk(state, h.id, today) && !isCompleted(state, h.id, today))
+        .map((h) => h.name),
     [sortedHabits, state, today],
   )
 
@@ -519,6 +565,9 @@ export default function App() {
       <div className="app-body">
         <div className="app-body-main">
           <div className="rings-block">
+            {sortedHabits.length > 0 && (
+              <NeverMissTwiceBanner habitNames={neverMissTwiceHabitNames} />
+            )}
             <section
               className={
                 sortedHabits.length > 0 ? 'rings-row rings-row--with-master' : 'rings-row'

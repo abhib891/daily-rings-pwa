@@ -445,6 +445,50 @@ html.color-scheme-dark .app-error {
   }
 }
 
+.app-nudge-banner {
+  margin: 0 0 0.65rem;
+  padding: 0.95rem 1rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--risk-border);
+  border-left: 4px solid var(--risk-text);
+  background: rgba(254, 226, 226, 0.55);
+  box-shadow: var(--shadow-sm);
+}
+
+html.color-scheme-dark .app-nudge-banner {
+  background: rgba(127, 29, 29, 0.32);
+  border-color: var(--risk-border);
+}
+
+.app-nudge-banner__label {
+  margin: 0 0 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--risk-text);
+  line-height: 1.2;
+}
+
+.app-nudge-banner__text {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: -0.015em;
+  color: var(--text-h);
+}
+
+.app-nudge-banner__text strong {
+  font-weight: 800;
+}
+
+@media (min-width: 720px) {
+  .app-nudge-banner__text {
+    font-size: 1rem;
+  }
+}
+
 .rings-block {
   display: flex;
   flex-direction: column;
